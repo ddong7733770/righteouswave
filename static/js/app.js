@@ -433,10 +433,11 @@ async function forceRefresh() {
    5. 카테고리별 렌더링 함수
    ======================================================== */
 
-// (1) 메인 헤드라인 뉴스 (썸네일 + 큰 제목)
+// (1) 메인 헤드라인 뉴스 (실제 기사 및 언론사 매칭, 무관한 이미지 배제)
 function renderHeadlineNews(headline) {
   if (!headline) return;
 
+  const thumbWrap = document.querySelector(".headline-thumb-wrap");
   const imgEl = document.getElementById("headlineImg");
   const mediaEl = document.getElementById("headlineMedia");
   const timeEl = document.getElementById("headlineTime");
@@ -444,11 +445,19 @@ function renderHeadlineNews(headline) {
   const summaryEl = document.getElementById("headlineSummary");
   const linkEl = document.getElementById("headlineLink");
 
-  if (imgEl) {
-    imgEl.src = headline.thumbnail || "https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80";
-    imgEl.alt = headline.title;
+  // 기사와 무관한 임의의 사진(Unsplash 등) 노출 금지
+  if (imgEl && thumbWrap) {
+    if (headline.thumbnail && headline.thumbnail.startsWith("http")) {
+      imgEl.src = headline.thumbnail;
+      imgEl.alt = headline.title;
+      thumbWrap.style.display = "block";
+    } else {
+      // 실제 기사 이미지가 없는 경우 관련 없는 이미지를 띄우지 않고 텍스트 중심 헤드라인 카드로 깔끔하게 표시
+      thumbWrap.style.display = "none";
+    }
   }
-  if (mediaEl) mediaEl.textContent = headline.media || "메인 속보";
+
+  if (mediaEl) mediaEl.textContent = headline.media || "주요언론";
   if (timeEl) timeEl.textContent = headline.time || "실시간";
   if (titleEl) {
     titleEl.innerHTML = `<a href="${headline.link}" target="_blank" rel="noopener noreferrer">${escapeHtml(headline.title)}</a>`;
