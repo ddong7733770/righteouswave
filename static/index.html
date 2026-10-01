@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>바른결 - 정각에 만나는 바른 시선</title>
+  <meta name="description" content="매시 정각 실시간 주요 뉴스, 유튜브 트렌드(조회수 1,000+), 무가입 오픈 커뮤니티 베스트를 취합하는 바른결 큐레이션 포털">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%200%20100%20100%22><text y=%22.9em%22 font-size=%2290%22>⚖️</text></svg>">
+</head>
+<body class="font-normal theme-light">
+
+  <!-- 최상단 긴급 속보 & 알림 바 -->
+  <div class="top-ticker-bar">
+    <div class="container ticker-container">
+      <div class="ticker-label">
+        <span class="pulse-dot"></span>
+        <strong>정각 큐레이션</strong>
+      </div>
+      <div class="ticker-content" id="tickerContent">
+        <span>[속보] 매시 정각 인공지능 기반 보수 타겟 빅데이터 실시간 큐레이션 가동 중입니다.</span>
+      </div>
+      <div class="ticker-date" id="liveDateTime">2026.10.01 (목) 11:00</div>
+    </div>
+  </div>
+
+  <!-- 헤더 영역 -->
+  <header class="main-header">
+    <div class="container header-inner">
+      <!-- 로고 및 슬로건 -->
+      <div class="header-brand">
+        <a href="/" class="brand-logo" onclick="resetFilter(event)">
+          <div class="logo-symbol">결</div>
+          <div class="logo-text-group">
+            <h1 class="logo-title">바른결</h1>
+            <span class="logo-slogan">정각에 만나는 바른 소식 · 깊이 있는 시선</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- 실시간 정각 타이머 & 상태 -->
+      <div class="header-timer-box">
+        <div class="timer-badge-wrap">
+          <div class="timer-badge">
+            <span class="timer-icon">⏱️</span>
+            <span class="timer-text">
+              최근 업데이트 <strong id="lastUpdateHour">11:00</strong>
+            </span>
+          </div>
+          <div class="timer-countdown">
+            다음 갱신까지 <span class="countdown-digits" id="countdownTimer">00:34:20</span>
+          </div>
+        </div>
+        <button class="btn-refresh" id="btnRefresh" title="지금 즉시 데이터 최신화">
+          <span class="refresh-icon">↻</span>
+          <span>지금 갱신</span>
+        </button>
+      </div>
+
+      <!-- 사용자 편의 유틸리티 (휴대폰 연결, 글자크기, 주간리포트, 다크모드) -->
+      <div class="header-utils">
+        <button class="btn-util btn-mobile" id="btnOpenMobile" title="내 스마트폰으로 바로 보기">
+          <span class="icon">📱</span>
+          <span>휴대폰 연결</span>
+        </button>
+        <button class="btn-util btn-report" id="btnOpenReport" title="주간 트렌드 분석 리포트">
+          <span class="icon">📊</span>
+          <span>주간 리포트</span>
+        </button>
+        <div class="font-resizer" title="본문 글자 크기 조절">
+          <button class="font-btn active" data-size="normal">가</button>
+          <button class="font-btn" data-size="large">가+</button>
+          <button class="font-btn" data-size="xlarge">가++</button>
+        </div>
+        <button class="btn-util theme-toggle" id="themeToggle" title="화면 모드 전환">
+          <span class="theme-icon" id="themeIcon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 글로벌 네비게이션 바 (GNB) -->
+  <nav class="gnb-nav">
+    <div class="container gnb-inner">
+      <ul class="gnb-menu">
+        <li class="nav-item active"><a href="#section-all" data-tab="all">종합 핫이슈</a></li>
+        <li class="nav-item"><a href="#section-news" data-tab="news">핫라인 뉴스</a></li>
+        <li class="nav-item"><a href="#section-youtube" data-tab="youtube">실시간 유튜브 (1,000+)</a></li>
+        <li class="nav-item"><a href="#section-community" data-tab="community">오픈 커뮤니티 베스트</a></li>
+        <li class="nav-item"><a href="#section-factcheck" data-tab="factcheck">바른 팩트체크</a></li>
+        <li class="nav-item"><a href="#section-opinion" data-tab="opinion">원포인트 오피니언</a></li>
+        <li class="nav-item"><a href="#section-poll" data-tab="poll">실시간 퀵 여론조사</a></li>
+      </ul>
+      <div class="gnb-search">
+        <div class="search-input-wrap">
+          <input type="text" id="searchInput" placeholder="키워드 검색 (예: 원전, 한미동맹, 세제)" autocomplete="off">
+          <button id="searchBtn" title="검색">🔍</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 활성 필터 바 (키워드 클릭 시 노출) -->
+  <div class="filter-status-bar container" id="filterStatusBar" style="display: none;">
+    <div class="filter-chip">
+      <span>선택 키워드: <strong id="filterKeywordText">#원전</strong></span>
+      <button class="filter-clear-btn" id="filterClearBtn">✕ 전체보기</button>
+    </div>
+    <div class="filter-count" id="filterCountText">관련 콘텐츠 12건 정렬됨</div>
+  </div>
+
+  <!-- 메인 본문 컨테이너 -->
+  <main class="main-content container">
+    <div class="content-wrapper">
+      
+      <!-- 좌측 메인 3단 그리드 영역 -->
+      <div class="grid-layout-3col">
+        
+        <!-- [1] 핫라인 뉴스 (메인 노출 뉴스 큐레이션) -->
+        <section class="card-column news-column" id="section-news">
+          <div class="column-header">
+            <div class="col-title-wrap">
+              <span class="col-badge badge-blue">실시간</span>
+              <h2 class="column-title">핫라인 뉴스</h2>
+            </div>
+            <span class="col-subtitle">포털 메인 노출 · 광고 100% 배제</span>
+          </div>
+
+          <!-- 최상단 헤드라인 1건 (썸네일 + 큰 제목) -->
+          <div class="headline-featured-card" id="headlineCard">
+            <div class="headline-thumb-wrap">
+              <img id="headlineImg" src="" alt="헤드라인 뉴스 썸네일" loading="lazy">
+              <span class="headline-tag">TOP 헤드라인</span>
+            </div>
+            <div class="headline-body">
+              <div class="meta-row">
+                <span class="media-name" id="headlineMedia">연합뉴스</span>
+                <span class="meta-dot">·</span>
+                <span class="pub-time" id="headlineTime">11:15</span>
+              </div>
+              <h3 class="headline-title" id="headlineTitle">
+                <a href="#" target="_blank" rel="noopener noreferrer">뉴스를 불러오는 중입니다...</a>
+              </h3>
+              <p class="headline-summary" id="headlineSummary">잠시만 기다려주세요.</p>
+              <div class="headline-action">
+                <a href="#" id="headlineLink" target="_blank" rel="noopener noreferrer" class="read-more-btn">
+                  원문 기사 전문 보기 ↗
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 스트레이트 뉴스 리스트 -->
+          <div class="straight-news-list" id="straightNewsList">
+            <!-- 자바스크립트로 동적 렌더링 -->
+            <div class="loading-spinner">뉴스 데이터를 불러오는 중...</div>
+          </div>
+        </section>
+
+
+        <!-- [2] 실시간 유튜브 트렌드 (조회수 1,000 이상 하이라이트) -->
+        <section class="card-column youtube-column" id="section-youtube">
+          <div class="column-header">
+            <div class="col-title-wrap">
+              <span class="col-badge badge-red">1,000+ View</span>
+              <h2 class="column-title">실시간 유튜브 트렌드</h2>
+            </div>
+            <span class="col-subtitle">상단 노출 검증 · 시사/경제 하이라이트</span>
+          </div>
+
+          <div class="youtube-grid" id="youtubeGrid">
+            <!-- 자바스크립트로 동적 렌더링 -->
+            <div class="loading-spinner">유튜브 영상을 불러오는 중...</div>
+          </div>
+        </section>
+
+
+        <!-- [3] 오픈 커뮤니티 실시간 베스트 (무가입 기반) -->
+        <section class="card-column community-column" id="section-community">
+          <div class="column-header">
+            <div class="col-title-wrap">
+              <span class="col-badge badge-green">무가입 오픈</span>
+              <h2 class="column-title">커뮤니티 실시간 베스트</h2>
+            </div>
+            <span class="col-subtitle">디시·에펨 등 실시간 추천/조회수 급상승</span>
+          </div>
+
+          <div class="community-list" id="communityList">
+            <!-- 자바스크립트로 동적 렌더링 -->
+            <div class="loading-spinner">커뮤니티 인기글을 불러오는 중...</div>
+          </div>
+        </section>
+
+      </div><!-- //grid-layout-3col -->
+
+
+      <!-- 우측 사이드바: 시간대별 급상승 검색어 -->
+      <aside class="sidebar-column">
+        <div class="sticky-sidebar">
+          
+          <!-- 급상승 검색어 랭킹 -->
+          <div class="sidebar-card trending-card">
+            <div class="sidebar-card-header">
+              <div class="trending-title-row">
+                <span class="fire-icon">🔥</span>
+                <h3 class="sidebar-title">시간대별 급상승 검색어</h3>
+              </div>
+              <span class="trending-refresh-badge" id="trendingTimeBadge">11:00 기준</span>
+            </div>
+            <p class="sidebar-desc">보수 타겟 중심 실시간 검색량 TOP 10</p>
+            
+            <ol class="trending-ranking-list" id="trendingList">
+              <!-- 자바스크립트로 동적 렌더링 -->
+            </ol>
+            <div class="trending-footer-tip">
+              💡 키워드를 클릭하면 관련 뉴스와 영상을 필터링합니다.
+            </div>
+          </div>
+
+          <!-- 바른 미디어 신뢰도 지표 안내 배너 -->
+          <div class="sidebar-card banner-card">
+            <div class="banner-icon">🛡️</div>
+            <h4 class="banner-title">정각 큐레이션 원칙</h4>
+            <p class="banner-text">
+              1. 찌라시·낚시성 광고 완전 배제<br>
+              2. 객관적 통계 및 데이터 기반 검증<br>
+              3. 비로그인 오픈 커뮤니티 여론 수렴
+            </p>
+          </div>
+
+        </div>
+      </aside>
+
+    </div><!-- //content-wrapper -->
+
+
+    <!-- 추가 콘텐츠 섹션 1: 비로그인 실시간 여론조사 (O/X 퀵 투표) -->
+    <section class="bottom-section poll-section" id="section-poll">
+      <div class="section-badge-bar">
+        <span class="section-tag tag-blue">비로그인 참여</span>
+        <h2 class="section-main-title">실시간 여론조사 (O/X 퀵 투표)</h2>
+        <span class="section-help-text">IP 및 쿠키 기반으로 중복 없이 안전하고 신속하게 민심을 집계합니다.</span>
+      </div>
+
+      <div class="poll-box-card">
+        <div class="poll-content-left">
+          <span class="poll-badge-live">오늘의 핫이슈</span>
+          <h3 class="poll-question" id="pollQuestion">
+            오늘의 핫이슈: 원자력 발전 비중 확대 및 차세대 SMR 수출 정책에 찬성하십니까?
+          </h3>
+          <p class="poll-description" id="pollDesc">
+            정부의 2038 미래 에너지 믹스 정책 및 체코/유럽 원전 수주 확대를 위한 민관 지원 강화 방안에 대한 귀하의 의견을 묻습니다.
+          </p>
+          <div class="poll-meta">
+            <span>총 참여 인원: <strong id="pollTotalCount">3,894</strong>명</span>
+            <span class="poll-status-tag" id="pollUserStatus">미참여</span>
+          </div>
+        </div>
+
+        <div class="poll-interactive-right">
+          <!-- 투표 버튼 -->
+          <div class="poll-buttons" id="pollButtons">
+            <button class="btn-vote btn-agree" id="btnVoteAgree" onclick="submitVote('agree')">
+              <div class="vote-icon">👍</div>
+              <div class="vote-text-wrap">
+                <span class="vote-title">찬성합니다</span>
+                <span class="vote-sub">적극 지지 / 필요함</span>
+              </div>
+            </button>
+            <button class="btn-vote btn-disagree" id="btnVoteDisagree" onclick="submitVote('disagree')">
+              <div class="vote-icon">👎</div>
+              <div class="vote-text-wrap">
+                <span class="vote-title">반대합니다</span>
+                <span class="vote-sub">시기상조 / 재검토</span>
+              </div>
+            </button>
+          </div>
+
+          <!-- 투표 결과 그래프 (투표 후 또는 실시간 표시) -->
+          <div class="poll-result-bar-wrap" id="pollResultBar">
+            <div class="result-label-row">
+              <span class="label-agree">찬성 <strong id="agreeRatioText">89.4%</strong> (<span id="agreeCountText">3,482</span>표)</span>
+              <span class="label-disagree">반대 <strong id="disagreeRatioText">10.6%</strong> (<span id="disagreeCountText">412</span>표)</span>
+            </div>
+            <div class="poll-progress-track">
+              <div class="progress-fill agree-fill" id="agreeFillBar" style="width: 89.4%;"></div>
+              <div class="progress-fill disagree-fill" id="disagreeFillBar" style="width: 10.6%;"></div>
+            </div>
+            <p class="poll-voted-notice" id="pollNotice">투표에 참여해 주셔서 감사합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 추가 콘텐츠 섹션 2: 바른 팩트체크 코너 -->
+    <section class="bottom-section factcheck-section" id="section-factcheck">
+      <div class="section-badge-bar">
+        <span class="section-tag tag-gold">진실과 데이터</span>
+        <h2 class="section-main-title">바른 팩트체크</h2>
+        <span class="section-help-text">가짜뉴스와 왜곡된 주장을 "주장 - 팩트 - 근거 데이터" 3단 구조로 명쾌하게 해소합니다.</span>
+      </div>
+
+      <div class="factcheck-grid" id="factcheckGrid">
+        <!-- 자바스크립트로 동적 렌더링 -->
+      </div>
+    </section>
+
+
+    <!-- 추가 콘텐츠 섹션 3: 원포인트 오피니언 코너 -->
+    <section class="bottom-section opinion-section" id="section-opinion">
+      <div class="section-badge-bar">
+        <span class="section-tag tag-navy">사설 & 칼럼 엄선</span>
+        <h2 class="section-main-title">원포인트 오피니언</h2>
+        <span class="section-help-text">자유시장경제, 국가안보, 법치 가치를 대변하는 지식인의 깊이 있는 칼럼 (하루 2회 엄선)</span>
+      </div>
+
+      <div class="opinion-grid" id="opinionGrid">
+        <!-- 자바스크립트로 동적 렌더링 -->
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- 주간 키워드 데이터 리포트 모달 -->
+  <div class="modal-backdrop" id="reportModal" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-badge">빅데이터 아카이브</span>
+          <h3 class="modal-title">주간 바른결 트렌드 리포트</h3>
+          <span class="modal-period" id="reportPeriod">2026년 9월 4주차 종합</span>
+        </div>
+        <button class="modal-close-btn" id="btnCloseReport">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="report-summary-box">
+          <div class="report-stat-item">
+            <span class="stat-num" id="reportTotalCurated">18,420건</span>
+            <span class="stat-label">한 주간 큐레이션 데이터</span>
+          </div>
+          <div class="report-stat-item">
+            <span class="stat-num">TOP 1</span>
+            <span class="stat-label">원전 24조 수출 & 한미 안보</span>
+          </div>
+          <div class="report-stat-item">
+            <span class="stat-num">89.4%</span>
+            <span class="stat-label">원전 확대 여론 찬성률</span>
+          </div>
+        </div>
+
+        <h4 class="report-subheading">📈 주간 최다 노출·클릭 키워드 TOP 10</h4>
+        <div class="report-table-wrap">
+          <table class="report-table">
+            <thead>
+              <tr>
+                <th>순위</th>
+                <th>주요 키워드</th>
+                <th>클릭 및 관심도</th>
+                <th>점유 비율</th>
+              </tr>
+            </thead>
+            <tbody id="reportKeywordTable">
+              <!-- 동적 생성 -->
+            </tbody>
+          </table>
+        </div>
+
+        <h4 class="report-subheading" style="margin-top: 24px;">💡 주간 핵심 이슈 브리핑</h4>
+        <ul class="report-insights-list" id="reportInsightsList">
+          <!-- 동적 생성 -->
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-close-modal" id="btnModalConfirm">확인</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 유튜브 영상 재생 모달 -->
+  <div class="modal-backdrop" id="videoModal" style="display: none;">
+    <div class="modal-dialog modal-video">
+      <div class="modal-header">
+        <h4 class="modal-title" id="videoModalTitle">영상 시청</h4>
+        <button class="modal-close-btn" id="btnCloseVideo">✕</button>
+      </div>
+      <div class="modal-body video-modal-body">
+        <div class="video-container" id="videoContainer">
+          <!-- iframe 삽입 -->
+        </div>
+        <div class="video-meta-box" id="videoMetaBox"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 스마트폰 외부 접속 안내 모달 -->
+  <div class="modal-backdrop" id="mobileModal" style="display: none;">
+    <div class="modal-dialog modal-mobile">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-badge" style="background-color: #3b82f6;">외부 인터넷 연결</span>
+          <h3 class="modal-title">📱 내 휴대폰으로 바로 보기</h3>
+          <span class="modal-period">LTE/5G/외부 와이파이 어디서나 접속 가능</span>
+        </div>
+        <button class="modal-close-btn" id="btnCloseMobile">✕</button>
+      </div>
+      <div class="modal-body" style="text-align: center;">
+        <p style="font-size: 0.9rem; color: var(--text-sub); margin-bottom: 16px;">
+          스마트폰 기본 카메라로 아래 <strong>QR 코드</strong>를 비추시거나,<br>
+          접속 주소를 복사하여 카카오톡이나 모바일 브라우저에 입력하세요!
+        </p>
+
+        <!-- QR 코드 영역 -->
+        <div class="qr-box" style="margin: 0 auto 16px; width: 190px; height: 190px; background: #ffffff; padding: 10px; border-radius: 12px; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center;">
+          <img id="mobileQrImg" src="" alt="휴대폰 접속 QR코드" style="width: 100%; height: 100%; object-fit: contain;">
+        </div>
+
+        <!-- 링크 복사 영역 -->
+        <div class="mobile-link-input-wrap" style="display: flex; gap: 8px; max-width: 440px; margin: 0 auto 14px;">
+          <input type="text" id="mobileUrlInput" readonly value="터널 링크 생성 중..." style="flex: 1; padding: 10px 12px; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-subtle); color: var(--text-main); font-size: 0.85rem; font-weight: 600;">
+          <button id="btnCopyMobileUrl" style="padding: 10px 16px; background: var(--primary); color: #ffffff; border-radius: 6px; font-weight: 600; font-size: 0.85rem; white-space: nowrap;">주소 복사</button>
+        </div>
+
+        <div style="background: #eff6ff; border: 1px solid #bfdbfe; padding: 10px 14px; border-radius: 8px; font-size: 0.8rem; color: #1e40af; text-align: left; line-height: 1.5;">
+          💡 <strong>팁:</strong> 컴퓨터가 켜져 있는 동안 이 보안 터널(HTTPS) 링크를 통해 스마트폰에서 동일하게 매시 정각 큐레이션 및 여론조사 투표를 이용하실 수 있습니다.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-close-modal" id="btnConfirmMobile">닫기</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 푸터 영역 -->
+  <footer class="main-footer">
+    <div class="container footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="logo-symbol small">결</div>
+          <strong>바른결 (BarunGyeol)</strong>
+          <span class="footer-tagline">"정각에 만나는 바른 소식, 바른결"</span>
+        </div>
+        <div class="footer-links">
+          <a href="#" onclick="alert('바른결은 매시 정각 공개된 웹 데이터를 중립적이고 객관적인 알고리즘으로 취합하여 제공하는 정보 큐레이션 서비스입니다.'); return false;">사이트 소개</a>
+          <a href="#" onclick="alert('개인정보 보호법에 의거하여 본 사이트는 일체의 회원가입을 받지 않으며 사용자의 개인정보를 저장하지 않습니다.'); return false;">개인정보 처리방침</a>
+          <a href="#" onclick="alert('본 사이트에 제공되는 모든 기사, 영상, 게시물의 저작권은 각 원작자 및 해당 언론사/플랫폼에 귀속됩니다.'); return false;">저작권 안내</a>
+          <a href="mailto:contact@bareungyeol.kr">제휴 및 이메일 제보</a>
+        </div>
+      </div>
+      <div class="footer-divider"></div>
+      <div class="footer-disclaimer">
+        <p><strong>[면책 조항]</strong> 본 웹사이트는 공개된 외부 웹페이지 및 RSS, 공식 배포 데이터를 기반으로 메타 정보를 실시간 큐레이션하여 링크를 매개하는 서비스입니다. 링크를 통해 연결되는 외부 페이지 및 원작자 게시물의 진실성과 법적 책임은 해당 원작자 및 언론사, 게시자에게 있습니다.</p>
+        <p class="copy">Copyright © 2026 바른결 (BarunGyeol). All rights reserved. 매시 정각 실시간 자동 갱신 시스템 가동 중.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
