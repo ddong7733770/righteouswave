@@ -31,7 +31,14 @@ app.add_middleware(
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_DIR = os.path.join(BASE_DIR, "static")
 
-# 정적 파일 마운트
+# 정적 파일 마운트 (루트 및 static 호환)
+if os.path.exists(os.path.join(BASE_DIR, "css")):
+    app.mount("/css", StaticFiles(directory=os.path.join(BASE_DIR, "css")), name="css")
+if os.path.exists(os.path.join(BASE_DIR, "js")):
+    app.mount("/js", StaticFiles(directory=os.path.join(BASE_DIR, "js")), name="js")
+if os.path.exists(os.path.join(BASE_DIR, "data")):
+    app.mount("/data", StaticFiles(directory=os.path.join(BASE_DIR, "data")), name="data")
+
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 
@@ -41,6 +48,9 @@ class VoteRequest(BaseModel):
 
 @app.get("/")
 async def read_index():
+    root_index = os.path.join(BASE_DIR, "index.html")
+    if os.path.exists(root_index):
+        return FileResponse(root_index)
     index_path = os.path.join(STATIC_DIR, "index.html")
     return FileResponse(index_path)
 

@@ -69,14 +69,28 @@
 
 ---
 
-## 💻 실행 방법 (더블 클릭 1초 실행)
+## 🌐 깃허브(GitHub) 업로드 및 전 세계 무료 웹사이트 배포
 
-복잡한 개발 명령어를 입력할 필요 없이, 마우스 더블 클릭으로 바로 구동됩니다:
+GitHub에 올리시면 **GitHub Pages 무료 웹 호스팅**을 통해, 컴퓨터를 꺼두어도 **전 세계 누구나 스마트폰/PC에서 접속할 수 있는 나만의 웹사이트 주소**가 생성됩니다!
 
-1. 폴더 안에 있는 **`run_bareungyeol.bat`** 파일을 더블 클릭합니다.
-2. 검은색 콘솔 창이 뜨며 백엔드 서버가 시작되고, **기본 인터넷 브라우저가 자동으로 열립니다.**
-   - 브라우저 접속 주소: `http://localhost:8080`
-3. 종료 시에는 검은색 콘솔 창을 닫으시면 깔끔하게 종료됩니다.
+### 🌟 방법 1: 원클릭 업로더 (Git 프로그램 설치 불필요!)
+1. 최상위 폴더의 **`upload_bareungyeol_to_github.bat`** 파일을 더블 클릭합니다.
+2. 안내에 따라 GitHub Personal Access Token을 입력하시면, 자동으로 저장소 생성부터 소스코드 푸시, GitHub Pages 활성화까지 100% 자동 완료됩니다.
+3. 배포 완료 후 즉시 **`https://<내아이디>.github.io/bareungyeol/`** 주소로 접속하실 수 있습니다.
+
+### 🌐 방법 2: GitHub 웹사이트에서 마우스로 직접 올리기
+1. [GitHub.com](https://github.com)에 로그인 후 새 저장소(`bareungyeol`, Public)를 생성합니다.
+2. `uploading an existing file`을 눌러 `bareungyeol` 폴더 안의 파일들을 마우스로 드래그하여 올리고 `Commit changes`를 누릅니다.
+3. 저장소의 **`Settings` -> `Pages`** 메뉴에서 Branch를 **`main`** / **`/ (root)`** 로 설정하고 **`Save`**를 누르면 끝!
+
+---
+
+## 💻 컴퓨터 로컬 1초 실행 방법
+
+컴퓨터에서 자체 백엔드 서버로 바로 실행하시려면:
+1. 폴더 안에 있는 **`run_bareungyeol.bat`** 파일을 마우스로 **더블 클릭**합니다.
+2. 검은색 창이 뜨며 서버가 켜지고, **기본 인터넷 브라우저(`http://localhost:8080`)가 자동으로 열립니다.**
+3. 상단 헤더의 `📱 휴대폰 연결` 버튼을 누르면 실시간 스마트폰 접속 링크 및 QR코드가 나타납니다.
 
 ---
 
@@ -84,19 +98,18 @@
 
 ```
 d:\AI_데이터 관리\앱 제작\
-├── run_bareungyeol.bat            # 최상위 원클릭 실행기
-└── bareungyeol/                   # 바른결 프로젝트 폴더
-    ├── run_bareungyeol.bat        # 폴더 내 원클릭 실행기
-    ├── requirements.txt           # 필요 라이브러리 목록
-    ├── README.md                  # 프로젝트 안내서
-    ├── server.py                  # FastAPI 백엔드 웹 서버 (정각 스케줄러 내장)
-    ├── data_service.py            # 실시간 뉴스/유튜브/커뮤니티 크롤러 및 큐레이션 엔진
-    ├── data/
-    │   └── poll_data.json         # 실시간 퀵 여론조사 영속성 데이터
-    └── static/
-        ├── index.html             # 메인 포털 화면 마크업
-        ├── css/
-        │   └── style.css          # 고품격 3단 반응형 디자인 및 가독성/다크모드 CSS
-        └── js/
-            └── app.js             # 실시간 정각 타이머, 투표, 필터링, 모달 인터랙션 JS
+├── run_bareungyeol.bat                    # PC 로컬 원클릭 실행기
+├── upload_bareungyeol_to_github.bat      # ⭐️ GitHub 원클릭 업로드 & 배포기
+└── bareungyeol/                           # 바른결 프로젝트 메인 폴더
+    ├── index.html                         # GitHub Pages 메인 화면 마크업
+    ├── css/style.css                      # 고품격 3단 반응형 디자인 및 가독성/다크모드 CSS
+    ├── js/app.js                          # 하이브리드 엔진 (실시간 타이머, 여론조사, 필터링)
+    ├── data/content.json                  # 정각 큐레이션 정적 데이터셋
+    ├── upload_to_github.py                # GitHub REST API 자동 업로더
+    ├── upload_to_github.bat               # 내부 업로더 배치 파일
+    ├── .github/workflows/deploy.yml       # GitHub Pages 자동 배포 액션 워크플로우
+    ├── server.py                          # FastAPI 백엔드 웹 서버
+    ├── data_service.py                    # 실시간 뉴스/유튜브/커뮤니티 크롤러
+    └── start_app.py                       # 로컬 스마트 런처
 ```
+
