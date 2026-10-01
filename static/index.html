@@ -7,7 +7,8 @@
   <meta name="description" content="매시 정각 실시간 주요 뉴스, 유튜브 트렌드(조회수 1,000+), 무가입 오픈 커뮤니티 베스트를 취합하는 바른결 큐레이션 포털">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%200%20100%20100%22><text y=%22.9em%22 font-size=%2290%22>⚖️</text></svg>">
 </head>
@@ -102,6 +103,24 @@
       </div>
     </div>
   </nav>
+
+  <!-- 지니뮤직 스타일 환영 및 취향 태그 영역 -->
+  <div class="welcome-section container">
+    <div class="welcome-box">
+      <div class="welcome-left">
+        <span class="welcome-kicker">✦ REALTIME 1-HOUR CURATION</span>
+        <h2 class="welcome-heading">정각에 만나는 바른 소식, 지금 주목할 핵심 이슈</h2>
+      </div>
+      <div class="welcome-tags">
+        <button class="tag tag-solid" onclick="clearFilter()">전체 이슈</button>
+        <button class="tag tag-subtle" onclick="filterByKeyword('한미동맹')">#한미동맹</button>
+        <button class="tag tag-subtle" onclick="filterByKeyword('원전')">#원전수출</button>
+        <button class="tag tag-subtle" onclick="filterByKeyword('대통령')">#대통령실</button>
+        <button class="tag tag-subtle" onclick="filterByKeyword('반도체')">#반도체</button>
+        <button class="tag tag-outline" onclick="filterByKeyword('부동산')">#부동산</button>
+      </div>
+    </div>
+  </div>
 
   <!-- 활성 필터 바 (키워드 클릭 시 노출) -->
   <div class="filter-status-bar container" id="filterStatusBar" style="display: none;">
