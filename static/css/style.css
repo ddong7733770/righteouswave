@@ -344,18 +344,20 @@ body.theme-dark .countdown-digits-compact {
 .btn-refresh-inline {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
   background: linear-gradient(135deg, var(--color-secondary-500), var(--color-primary-500));
   color: #FFFFFF;
   border: none;
-  padding: 3px 9px;
+  padding: 0;
   border-radius: var(--radius-full);
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   font-weight: 750;
   cursor: pointer;
   box-shadow: 0 2px 6px rgba(54, 23, 206, 0.22);
   transition: transform var(--duration-fast), box-shadow var(--duration-fast);
-  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .btn-refresh-inline:hover {
@@ -364,7 +366,7 @@ body.theme-dark .countdown-digits-compact {
 }
 
 .btn-refresh-inline:active {
-  transform: translateY(0) scale(0.97);
+  transform: translateY(0) scale(0.95);
 }
 
 .btn-refresh-inline.spinning .refresh-icon {
@@ -376,14 +378,12 @@ body.theme-dark .countdown-digits-compact {
   to { transform: rotate(360deg); }
 }
 
-/* 최상단 우측 정렬 클러스터 (글씨크기 조절 + 다크모드) */
-.header-right-cluster {
+/* 새로고침 버튼 바로 옆: 글씨크기 및 테마토글 인라인 도구 */
+.header-tools-inline {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 8px;
-  margin-left: auto;
-  flex-shrink: 0;
+  gap: 6px;
+  margin-left: 4px;
 }
 
 /* 작게 수정된 글자 크기 조정 버튼 */
@@ -2351,9 +2351,9 @@ body.theme-dark .stat-num {
     font-size: 0.82rem;
   }
 
-  /* 인앱 브라우저 모바일 최적화 */
+  /* 인앱 브라우저 웹뷰 모바일 최적화 (풀스크린 유지) */
   .inapp-browser-dialog {
-    border-radius: var(--radius-lg);
+    border-radius: 0;
   }
 
   .browser-address-bar {
@@ -2492,42 +2492,50 @@ body.theme-dark .stat-num {
 }
 
 /* ========================================================
-   [18] 인앱 브라우저 모달 (요구사항 11: 외부 페이지 이탈 방지)
+   [18] 인앱 브라우저 웹뷰 (요구사항 1: 상/하단 고정 바 제외 영역 100% 최대 활용)
    ======================================================== */
 .inapp-browser-modal {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 58px; /* 하단 고정 플로팅 바(58px) 제외한 영역 100% 최대 활용 */
   z-index: 2000;
-  background: rgba(13, 11, 18, 0.75);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: var(--bg-surface);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 14px 14px 74px 14px;
+  flex-direction: column;
+  padding: 0; /* 불필요한 테두리 여백 제거 */
+  margin: 0;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+}
+
+body.theme-dark .inapp-browser-modal {
+  background: var(--bg-base);
 }
 
 .inapp-browser-dialog {
   width: 100%;
-  max-width: 1100px;
+  max-width: 100%; /* 좌우 제한 없이 화면 100% 가득 채움 */
   height: 100%;
-  background: var(--bg-elevated);
-  border-radius: var(--radius-xl);
+  background: var(--bg-surface);
+  border-radius: 0; /* 라운딩 없이 풀스크린 웹뷰 */
+  border: none;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--border-default);
+  box-shadow: none;
 }
 
 .inapp-browser-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 10px 16px;
+  gap: 8px;
+  padding: 6px 12px;
   background: var(--bg-subtle);
   border-bottom: 1px solid var(--border-default);
+  height: 42px;
+  flex-shrink: 0;
 }
 
 .browser-controls-left,

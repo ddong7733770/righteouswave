@@ -53,20 +53,20 @@ REQUIRED_KEYWORDS = [
     "알고리즘", "미디어"
 ]
 
-# [지정 12대 언론사]
+# [지정 12대 언론사 - 조선, 중앙, 동아일보 최상단 우선]
 TARGET_MEDIA = [
     {"name": "조선일보", "site": "site:chosun.com"},
     {"name": "중앙일보", "site": "site:joongang.co.kr"},
-    {"name": "매경이코노미", "site": "site:mk.co.kr/economy"},
-    {"name": "JTBC", "site": "site:jtbc.co.kr"},
-    {"name": "채널A", "site": "site:ichannela.com"},
-    {"name": "연합뉴스", "site": "site:yna.co.kr"},
-    {"name": "KBS", "site": "site:kbs.co.kr"},
-    {"name": "조선비즈", "site": "site:biz.chosun.com"},
-    {"name": "YTN", "site": "site:ytn.co.kr"},
-    {"name": "MBC", "site": "site:imbc.com"},
+    {"name": "동아일보", "site": "site:donga.com"},
     {"name": "매일경제", "site": "site:mk.co.kr"},
-    {"name": "동아일보", "site": "site:donga.com"}
+    {"name": "매경이코노미", "site": "site:mk.co.kr/economy"},
+    {"name": "연합뉴스", "site": "site:yna.co.kr"},
+    {"name": "채널A", "site": "site:ichannela.com"},
+    {"name": "조선비즈", "site": "site:biz.chosun.com"},
+    {"name": "KBS", "site": "site:kbs.co.kr"},
+    {"name": "YTN", "site": "site:ytn.co.kr"},
+    {"name": "JTBC", "site": "site:jtbc.co.kr"},
+    {"name": "MBC", "site": "site:imbc.com"}
 ]
 
 # 급상승 검색어 초기 템플릿 (필수 키워드 기반)
@@ -545,20 +545,66 @@ class DataService:
             except Exception:
                 continue
 
-        # 헤드라인 1건 선정 (가장 최신의 중요한 실제 기사)
-        if news_items:
+        # ----------------------------------------------------
+        # 요구사항 4: 12개 언론사 뉴스 다양 배치 (조선, 중앙, 동아일보 상단)
+        # ----------------------------------------------------
+        # 1. 언론사별 수집 기사 분류
+        media_grouped = {m["name"]: [] for m in TARGET_MEDIA}
+        for item in news_items:
+            m_name = item.get("media", "")
+            if m_name in media_grouped:
+                media_grouped[m_name].append(item)
+            else:
+                media_grouped.setdefault(m_name, []).append(item)
+
+        top_tier = ["조선일보", "중앙일보", "동아일보"]
+
+        # 2. 메인 헤드라인 1건 선정 (조선, 중앙, 동아일보 중 가장 최신의 중요 기사 우선)
+        headline = None
+        for m_name in top_tier:
+            if media_grouped.get(m_name):
+                headline = media_grouped[m_name].pop(0)
+                break
+
+        if not headline and news_items:
             headline = news_items[0]
-            straight_list = news_items[1:16]
-        else:
+        elif not headline:
             headline = {
                 "title": "한미 안보·첨단산업 공조 강화… SMR 및 반도체 공급망 협력 심화",
                 "summary": "정부와 산업계가 한미동맹을 기반으로 원전 및 반도체 등 핵심 전략 산업의 글로벌 진출과 공급망 안정을 위한 다자간 협력을 본격화하고 있습니다.",
                 "link": "https://www.yna.co.kr/",
-                "media": "연합뉴스",
-                "time": "16:00",
+                "media": "조선일보",
+                "time": "실시간",
                 "thumbnail": None
             }
-            straight_list = []
+
+        # 3. 스트레이트 뉴스 리스트 구성 (조선, 중앙, 동아 상단 배치 + 12개 언론사 라운드로빈 교차 배치)
+        straight_list = []
+
+        # (1) 조선, 중앙, 동아일보의 대표 기사 상단 우선 배치 (최대 각 1건씩 상단 1~3위 확보)
+        for m_name in top_tier:
+            if media_grouped.get(m_name):
+                straight_list.append(media_grouped[m_name].pop(0))
+
+        # (2) 12개 언론사를 번갈아 가며 1건씩 균등하게 배치 (특정 언론사 독점 방지, 다양성 극대화)
+        all_media_keys = [m["name"] for m in TARGET_MEDIA]
+        added_in_turn = True
+        while added_in_turn and len(straight_list) < 18:
+            added_in_turn = False
+            for m_name in all_media_keys:
+                if media_grouped.get(m_name) and len(media_grouped[m_name]) > 0:
+                    straight_list.append(media_grouped[m_name].pop(0))
+                    added_in_turn = True
+                    if len(straight_list) >= 18:
+                        break
+
+        # 부족할 경우 남은 기사 순차 추가
+        if len(straight_list) < 12:
+            for item in news_items:
+                if item not in straight_list and item != headline:
+                    straight_list.append(item)
+                if len(straight_list) >= 15:
+                    break
 
         return {
             "headline": headline,

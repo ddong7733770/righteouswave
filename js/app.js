@@ -355,17 +355,24 @@ function handleBottomNavBack() {
 }
 
 /* ========================================================
-   5. 하단 공유하기 (열린 기사 딥링크 생성 및 주소 복사)
+   5. 하단 전달(공유)하기 (열린 기사 웹뷰 딥링크 or 현재 보던 위치값 링크 복사)
    ======================================================== */
 function handleShareCurrentPage() {
-  let shareUrl = `${window.location.origin}${window.location.pathname}`;
-  let successMsg = "바른결 주소가 복사되었습니다! 카카오톡 등에 공유해보세요.";
+  const origin = window.location.origin;
+  const pathname = window.location.pathname;
+  let shareUrl = `${origin}${pathname}`;
+  let successMsg = "바른결 주소가 복사되었습니다! 카카오톡 등에 전달해보세요.";
 
-  // 현재 열려 있는 원문 기사가 있는 경우, 수신자가 바로 기사를 볼 수 있는 딥링크 생성
+  // 요구사항 5-1: 현재 열려 있는 원문 웹뷰가 있는 경우, 수신자가 바로 웹뷰를 볼 수 있는 링크 생성
   if (appState.currentInApp && appState.currentInApp.url) {
     const cur = appState.currentInApp;
-    shareUrl = `${window.location.origin}${window.location.pathname}?article_url=${encodeURIComponent(cur.url)}&article_title=${encodeURIComponent(cur.title || '')}&article_media=${encodeURIComponent(cur.mediaName || '')}`;
-    successMsg = "열람 중인 기사 링크가 복사되었습니다! 카톡 등에 공유하면 이 기사가 바로 열립니다.";
+    shareUrl = `${origin}${pathname}?view=article&article_url=${encodeURIComponent(cur.url)}&article_title=${encodeURIComponent(cur.title || '')}&article_media=${encodeURIComponent(cur.mediaName || '')}`;
+    successMsg = "열람 중인 콘텐츠 웹뷰 링크가 복사되었습니다! 카톡 등에 전달하면 이 웹뷰가 바로 열립니다.";
+  } else {
+    // 요구사항 5-2: 메인 화면에서 스크롤하며 보던 위치값(scroll)을 보존한 전달 링크 생성
+    const currentScroll = Math.round(window.scrollY || window.pageYOffset || 0);
+    shareUrl = `${origin}${pathname}?scroll=${currentScroll}`;
+    successMsg = "현재 보시던 위치의 전달 링크가 복사되었습니다! 카톡 등에 전달하면 이 위치로 바로 열립니다.";
   }
 
   copyTextToClipboard(shareUrl, successMsg);
@@ -393,17 +400,30 @@ function fallbackCopy(text, successMsg) {
   showToast(successMsg || "링크가 클립보드에 복사되었습니다!");
 }
 
-// 페이지 진입 시 URL 파라미터(?article_url=...) 감지하여 원문 모달 자동 팝업
+// 요구사항 5: 페이지 진입 시 URL 파라미터 감지하여 웹뷰 자동 열림 또는 내가 보던 스크롤 위치로 이동
 function checkUrlDeepLink() {
   try {
     const params = new URLSearchParams(window.location.search);
+    
+    // 1) 기사 웹뷰 파라미터 감지 시 웹뷰 자동 오픈
     const articleUrl = params.get("article_url");
     if (articleUrl) {
-      const articleTitle = params.get("article_title") || "공유된 기사";
+      const articleTitle = params.get("article_title") || "공유된 콘텐츠";
       const articleMedia = params.get("article_media") || "";
       setTimeout(() => {
         openInAppBrowser(articleUrl, articleTitle, articleMedia);
       }, 350);
+      return;
+    }
+
+    // 2) 보던 스크롤 위치값 파라미터 감지 시 해당 위치로 자동 스크롤
+    const scrollVal = params.get("scroll");
+    if (scrollVal !== null && !isNaN(parseInt(scrollVal, 10))) {
+      const targetY = parseInt(scrollVal, 10);
+      setTimeout(() => {
+        window.scrollTo({ top: targetY, behavior: "smooth" });
+        showToast("전달받은 위치로 이동했습니다.");
+      }, 450);
     }
   } catch (e) {}
 }
@@ -535,6 +555,14 @@ async function loadContent(keyword = null) {
   // 키워드가 있으면 연결 사이트 추가 데이터 검색 실행
   if (keyword) {
     fetchConnectedExtraData(keyword);
+  }
+
+  // 요구사항 5: 렌더링 완료 후 전달받은 스크롤 위치값 정밀 복원
+  const scrollParam = new URLSearchParams(window.location.search).get("scroll");
+  if (scrollParam && !isNaN(parseInt(scrollParam, 10))) {
+    setTimeout(() => {
+      window.scrollTo({ top: parseInt(scrollParam, 10), behavior: "smooth" });
+    }, 250);
   }
 }
 
