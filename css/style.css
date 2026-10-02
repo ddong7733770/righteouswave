@@ -127,45 +127,62 @@ body.theme-dark {
   --shadow-glow: 0 14px 36px rgba(142, 112, 255, 0.28);
 }
 
-/* 글자 크기 가변 모드 (+는 1.5배, ++는 2배 완벽 지원) */
+/* 글자 크기 가변 모드 (+ 버튼 클릭 시 제목 외 모든 글자 크기 기본의 120% 적용) */
 body.font-normal {
   --font-base-size: 15px;
-  --font-scale: 1;
+  --font-body-scale: 1;
 }
 
 body.font-large {
-  --font-base-size: 22.5px; /* 1.5배 */
-  --font-scale: 1.5;
+  --font-base-size: 15px;
+  --font-body-scale: 1.2;
 }
 
-body.font-xlarge {
-  --font-base-size: 30px; /* 2.0배 */
-  --font-scale: 2.0;
+/* + 버튼 활성화 시 제목 외 모든 텍스트(본문, 요약, 리스트, 메타, 버튼 등) 120% 확대 */
+body.font-large p,
+body.font-large .headline-summary,
+body.font-large .straight-news-media,
+body.font-large .straight-news-time,
+body.font-large .yt-channel-name,
+body.font-large .yt-views-badge,
+body.font-large .comm-author,
+body.font-large .comm-meta,
+body.font-large .poll-description,
+body.font-large .poll-meta,
+body.font-large .idiom-text,
+body.font-large .idiom-block-label,
+body.font-large .factcheck-text,
+body.font-large .factcheck-conclusion-text,
+body.font-large .opinion-excerpt,
+body.font-large .opinion-author,
+body.font-large .report-table td,
+body.font-large .report-table th,
+body.font-large .report-insights-list li,
+body.font-large .footer-disclaimer p,
+body.font-large .btn-vote,
+body.font-large .btn-react {
+  font-size: 1.2em !important;
+  line-height: 1.65;
 }
 
-/* 글자 크기 확대 시 주요 텍스트 1.5배, 2배 비례 확대 */
+/* 제목(h1, h2, h3, h4, 타이틀 클래스)은 120% 확대에서 제외하여 레이아웃 균형 유지 */
+body.font-large h1,
+body.font-large h2,
+body.font-large h3,
+body.font-large h4,
+body.font-large .logo-title-compact,
 body.font-large .column-title,
+body.font-large .section-main-title,
 body.font-large .headline-title,
+body.font-large .headline-title a,
 body.font-large .straight-news-title,
 body.font-large .yt-card-title,
 body.font-large .comm-title,
-body.font-large .poll-question,
 body.font-large .factcheck-title,
 body.font-large .opinion-title,
-body.font-large .welcome-heading {
-  font-size: 1.5em !important;
-}
-
-body.font-xlarge .column-title,
-body.font-xlarge .headline-title,
-body.font-xlarge .straight-news-title,
-body.font-xlarge .yt-card-title,
-body.font-xlarge .comm-title,
-body.font-xlarge .poll-question,
-body.font-xlarge .factcheck-title,
-body.font-xlarge .opinion-title,
-body.font-xlarge .welcome-heading {
-  font-size: 2.0em !important;
+body.font-large .sidebar-title,
+body.font-large .poll-question {
+  font-size: inherit;
 }
 
 * {
@@ -229,14 +246,14 @@ body.theme-dark .sticky-top-header {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  flex-wrap: wrap;
 }
 
 .header-left-cluster {
   display: flex;
   align-items: center;
-  gap: 14px;
-  flex-wrap: wrap;
+  gap: 12px;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
 }
 
 /* 콤팩트 브랜드 로고 */
@@ -245,6 +262,7 @@ body.theme-dark .sticky-top-header {
   align-items: center;
   gap: 8px;
   text-decoration: none;
+  flex-shrink: 0;
 }
 
 .logo-symbol-compact {
@@ -275,6 +293,7 @@ body.theme-dark .sticky-top-header {
   color: var(--color-primary-500);
   line-height: 1;
   margin: 0;
+  white-space: nowrap;
 }
 
 body.theme-dark .logo-title-compact {
@@ -289,6 +308,7 @@ body.theme-dark .logo-title-compact {
   border: 1px solid var(--color-primary-100);
   padding: 1px 6px;
   border-radius: var(--radius-full);
+  white-space: nowrap;
 }
 
 body.theme-dark .logo-badge-live {
@@ -297,9 +317,9 @@ body.theme-dark .logo-badge-live {
   border-color: #3B2B73;
 }
 
-/* 제목 바로 옆 인라인 업데이트 & 갱신 바 */
+/* 제목 바로 옆 인라인 업데이트 & 갱신 바 (글자와 시간 완벽 한 줄 정렬) */
 .header-timer-inline {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
   background: var(--bg-subtle);
@@ -309,6 +329,8 @@ body.theme-dark .logo-badge-live {
   font-size: 0.78rem;
   color: var(--text-secondary);
   font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .timer-live-dot {
@@ -318,6 +340,7 @@ body.theme-dark .logo-badge-live {
   border-radius: 50%;
   display: inline-block;
   animation: pulseAnim 1.6s infinite;
+  flex-shrink: 0;
 }
 
 @keyframes pulseAnim {
@@ -371,6 +394,7 @@ body.theme-dark .countdown-digits-compact {
   cursor: pointer;
   box-shadow: 0 2px 6px rgba(54, 23, 206, 0.22);
   transition: transform var(--duration-fast), box-shadow var(--duration-fast);
+  white-space: nowrap;
 }
 
 .btn-refresh-inline:hover {
@@ -391,44 +415,14 @@ body.theme-dark .countdown-digits-compact {
   to { transform: rotate(360deg); }
 }
 
-/* 우측 클러스터 */
+/* 최상단 우측 정렬 클러스터 (글씨크기 조절 + 다크모드) */
 .header-right-cluster {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 8px;
-}
-
-/* 사자성어 헤더 칩 */
-.header-idiom-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  background: var(--color-primary-50);
-  border: 1px solid var(--color-primary-100);
-  color: var(--color-primary-700);
-  padding: 4px 10px;
-  border-radius: var(--radius-full);
-  font-size: 0.76rem;
-  font-weight: 750;
-  text-decoration: none;
-  transition: all var(--duration-fast);
-}
-
-.header-idiom-chip:hover {
-  background: var(--color-primary-100);
-  color: var(--color-primary-900);
-  transform: translateY(-1px);
-}
-
-body.theme-dark .header-idiom-chip {
-  background: #251B47;
-  border-color: #3B2B73;
-  color: #DDD2FF;
-}
-
-.idiom-chip-arrow {
-  font-size: 0.7rem;
-  opacity: 0.75;
+  margin-left: auto;
+  flex-shrink: 0;
 }
 
 /* 작게 수정된 글자 크기 조정 버튼 */
@@ -489,16 +483,23 @@ body.theme-dark .header-idiom-chip {
   border-bottom: 1px solid var(--border-default);
   box-shadow: var(--shadow-sm);
   position: sticky;
-  top: 0;
-  z-index: 100;
+  top: 48px;
+  z-index: 999;
 }
 
 .gnb-inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 8px 0;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 6px 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.gnb-inner::-webkit-scrollbar {
+  display: none;
 }
 
 .gnb-menu {
@@ -2249,40 +2250,164 @@ body.theme-dark .stat-num {
 }
 
 @media (max-width: 768px) {
-  .header-inner {
-    flex-direction: column;
-    align-items: flex-start;
+  .container {
+    padding: 0 14px;
   }
 
-  .header-timer-box {
-    width: 100%;
-    justify-content: space-between;
+  .header-inner-slim {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 2px 0;
   }
 
-  .header-utils {
+  .header-left-cluster {
     width: 100%;
-    justify-content: flex-end;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .header-left-cluster::-webkit-scrollbar {
+    display: none;
+  }
+
+  .header-timer-inline {
+    font-size: 0.72rem;
+    padding: 2px 8px;
+    gap: 6px;
+    white-space: nowrap;
+  }
+
+  .countdown-digits-compact {
+    padding: 1px 4px;
+    font-size: 0.7rem;
+  }
+
+  .btn-refresh-inline {
+    padding: 2px 7px;
+    font-size: 0.7rem;
   }
 
   .gnb-inner {
-    flex-direction: column;
-    align-items: stretch;
+    padding: 4px 0;
+    gap: 8px;
   }
 
-  .gnb-search {
-    margin-top: 6px;
+  .nav-item a {
+    padding: 6px 12px;
+    font-size: 0.84rem;
   }
 
-  .gnb-search .search-input-wrap {
-    width: 100%;
-  }
-
-  .gnb-search input {
-    width: 100%;
+  .poll-box-card {
+    grid-template-columns: 1fr;
+    padding: 18px 16px;
   }
 
   .poll-buttons {
     grid-template-columns: 1fr;
+  }
+
+  /* 주간 리포트 모바일 최적화 (요구사항 13) */
+  .report-box-card {
+    padding: 18px 14px;
+  }
+
+  .report-summary-box {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 14px;
+  }
+
+  .stat-num {
+    font-size: 1.3rem;
+  }
+
+  .report-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .report-table {
+    font-size: 0.78rem;
+    min-width: 320px;
+  }
+
+  .report-table th,
+  .report-table td {
+    padding: 8px 10px;
+  }
+
+  .report-insights-list {
+    padding-left: 16px;
+    font-size: 0.82rem;
+  }
+
+  /* 인앱 브라우저 모바일 최적화 */
+  .inapp-browser-dialog {
+    border-radius: var(--radius-lg);
+  }
+
+  .browser-address-bar {
+    padding: 3px 8px;
+  }
+
+  .browser-title-text {
+    max-width: 35%;
+    font-size: 0.75rem;
+  }
+
+  .browser-url-text {
+    font-size: 0.68rem;
+  }
+
+  .bottom-nav-inner {
+    padding: 0 10px;
+  }
+
+  .bottom-nav-btn {
+    padding: 7px 14px;
+    font-size: 0.78rem;
+  }
+
+  .bottom-nav-btn.btn-nav-share {
+    padding: 8px 18px;
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-title-compact {
+    font-size: 1.15rem;
+  }
+
+  .logo-badge-live {
+    display: none;
+  }
+
+  .header-timer-inline .timer-label-item {
+    font-size: 0.68rem;
+  }
+
+  .header-timer-inline .timer-countdown-item {
+    font-size: 0.68rem;
+  }
+
+  .idiom-title-combined {
+    font-size: 1.3rem;
+  }
+
+  .idiom-title-combined .idiom-hanja {
+    font-size: 1.35rem;
+  }
+
+  .idiom-title-combined .idiom-hangul {
+    font-size: 1rem;
   }
 }
 
@@ -2376,13 +2501,13 @@ body.theme-dark .stat-num {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 14px;
+  padding: 14px 14px 74px 14px;
 }
 
 .inapp-browser-dialog {
   width: 100%;
   max-width: 1100px;
-  height: 90vh;
+  height: 100%;
   background: var(--bg-elevated);
   border-radius: var(--radius-xl);
   overflow: hidden;
@@ -2497,6 +2622,30 @@ body.theme-dark .inapp-browser-notice-bar {
   background: #FFFFFF;
 }
 
+.inapp-loading-spinner {
+  position: absolute;
+  inset: 0;
+  background: var(--bg-elevated);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  z-index: 10;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.spinner-circle {
+  width: 38px;
+  height: 38px;
+  border: 3.5px solid var(--color-primary-100);
+  border-top-color: var(--color-primary-500);
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
 .inapp-browser-body iframe {
   width: 100%;
   height: 100%;
@@ -2504,14 +2653,14 @@ body.theme-dark .inapp-browser-notice-bar {
 }
 
 /* ========================================================
-   [19] 하단 고정 플로팅 바 (요구사항 21: 뒤로가기/앞으로가기/공유 복사)
+   [19] 하단 고정 플로팅 바 (인앱 브라우저 모달 위에서도 상시 고정 노출)
    ======================================================== */
 .bottom-floating-bar {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 1050;
+  z-index: 2500;
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -2593,7 +2742,7 @@ body.theme-dark .bottom-floating-bar {
   bottom: 74px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 2100;
+  z-index: 2600;
   background: rgba(27, 24, 35, 0.94);
   color: #FFFFFF;
   padding: 10px 22px;
@@ -2660,10 +2809,18 @@ body.theme-dark .bottom-floating-bar {
   box-shadow: 0 4px 10px rgba(153, 27, 27, 0.25);
 }
 
-.idiom-names {
+.idiom-names-inline {
   display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.idiom-title-combined {
+  display: inline-flex;
   align-items: baseline;
-  gap: 8px;
+  gap: 10px;
+  margin: 0;
+  white-space: nowrap;
 }
 
 .idiom-hanja {
@@ -2671,13 +2828,12 @@ body.theme-dark .bottom-floating-bar {
   font-weight: 900;
   letter-spacing: 0.04em;
   color: var(--text-primary);
-  margin: 0;
   font-family: 'Noto Serif KR', serif;
 }
 
 .idiom-hangul {
-  font-size: 1.1rem;
-  font-weight: 750;
+  font-size: 1.2rem;
+  font-weight: 800;
   color: var(--color-primary-500);
 }
 

@@ -14,11 +14,11 @@
 </head>
 <body class="font-normal theme-light">
 
-  <!-- 최상단 고정 슬림 헤더 (바 두께 얇게, 제목 옆 최근/갱신시간/지금갱신 배치) -->
+  <!-- 최상단 고정 슬림 헤더 (바 두께 얇게, 제목 옆 한 줄 인라인 타이머 & 우측 글자크기/테마) -->
   <header class="main-header sticky-top-header">
     <div class="container header-inner-slim">
       
-      <!-- 좌측: 브랜드 로고 & 정각 타이머 인라인 결합 -->
+      <!-- 좌측: 브랜드 로고 & 정각 타이머 인라인 한 줄 결합 -->
       <div class="header-left-cluster">
         <a href="#" class="brand-logo-compact" onclick="resetFilter(event)">
           <div class="logo-symbol-compact">결</div>
@@ -28,12 +28,13 @@
           </div>
         </a>
 
-        <!-- 제목 바로 옆 인라인 업데이트 & 갱신 바 -->
+        <!-- 제목 바로 옆 인라인 업데이트 & 갱신 바 (글자와 시간 한 줄 정렬) -->
         <div class="header-timer-inline">
           <span class="timer-live-dot"></span>
           <span class="timer-label-item">최근 업데이트 <strong id="lastUpdateHour">11:00</strong></span>
           <span class="timer-divider">|</span>
           <span class="timer-countdown-item">다음 갱신 <span class="countdown-digits-compact" id="countdownTimer">00:34:20</span></span>
+          <span class="timer-divider">|</span>
           <button class="btn-refresh-inline" id="btnRefresh" title="지금 데이터 새로 갱신">
             <span class="refresh-icon">↻</span>
             <span class="refresh-text">지금 갱신</span>
@@ -41,19 +42,12 @@
         </div>
       </div>
 
-      <!-- 우측: 사자성어 퀵 링크, 초소형 글씨크기 조절, 다크모드 토글 -->
+      <!-- 우측 끝 정렬: 초소형 글씨크기 조절(가/가+), 다크모드 토글 -->
       <div class="header-right-cluster">
-        <a href="#section-idiom" class="header-idiom-chip" id="headerIdiomChip" title="오늘의 사자성어 유래 및 해설 보기">
-          <span class="idiom-ico">🏛️</span>
-          <span class="idiom-chip-text">오늘의 사자성어: <strong id="headerIdiomTitle">破邪顯正(파사현정)</strong></span>
-          <span class="idiom-chip-arrow">↓</span>
-        </a>
-
-        <!-- 작게 수정된 글자 크기 조정 버튼 (1x / 1.5x / 2.0x) -->
-        <div class="font-resizer-compact" title="글자 크기 조절 (+는 1.5배, ++는 2배)">
+        <!-- 작게 수정된 글자 크기 조정 버튼 (기본 / +120%) -->
+        <div class="font-resizer-compact" title="글자 크기 조절 (+는 본문 120% 확대)">
           <button class="font-btn-compact active" data-size="normal">가</button>
           <button class="font-btn-compact" data-size="large">가+</button>
-          <button class="font-btn-compact" data-size="xlarge">가++</button>
         </div>
 
         <!-- 작게 수정된 테마 토글 버튼 -->
@@ -65,11 +59,11 @@
     </div>
   </header>
 
-  <!-- 글로벌 네비게이션 바 (GNB) -->
+  <!-- 글로벌 네비게이션 바 (GNB - 상단 스티키 고정 노출) -->
   <nav class="gnb-nav">
     <div class="container gnb-inner">
       <ul class="gnb-menu">
-        <li class="nav-item active"><a href="#welcome-section" data-tab="all">종합 핫이슈</a></li>
+        <li class="nav-item active"><a href="#section-news" data-tab="news">종합 핫이슈</a></li>
         <li class="nav-item"><a href="#section-news" data-tab="news">핫라인 뉴스</a></li>
         <li class="nav-item"><a href="#section-youtube" data-tab="youtube">실시간 유튜브</a></li>
         <li class="nav-item"><a href="#section-community" data-tab="community">오픈 커뮤니티 베스트</a></li>
@@ -79,42 +73,8 @@
         <li class="nav-item"><a href="#section-idiom" data-tab="idiom">오늘의 사자성어</a></li>
         <li class="nav-item"><a href="#section-report" data-tab="report">주간 리포트</a></li>
       </ul>
-      <div class="gnb-search">
-        <div class="search-input-wrap">
-          <input type="text" id="searchInput" placeholder="키워드 검색 (예: 원전, 한미동맹, 세제)" autocomplete="off">
-          <button id="searchBtn" title="검색">🔍</button>
-        </div>
-      </div>
     </div>
   </nav>
-
-  <!-- 지니뮤직 스타일 환영 및 취향 태그 영역 (종합 핫이슈 링크 목적지) -->
-  <section class="welcome-section container" id="welcome-section">
-    <div class="welcome-box">
-      <div class="welcome-left">
-        <span class="welcome-kicker">✦ REALTIME 1-HOUR CURATION</span>
-        <h2 class="welcome-heading">정각에 만나는 바른 소식, 지금 주목할 핵심 이슈</h2>
-      </div>
-      <div class="welcome-tags">
-        <button class="tag tag-solid" onclick="clearFilter()">전체 이슈</button>
-        <button class="tag tag-subtle" onclick="filterByKeyword('한미동맹')">#한미동맹</button>
-        <button class="tag tag-subtle" onclick="filterByKeyword('원전')">#원전수출</button>
-        <button class="tag tag-subtle" onclick="filterByKeyword('대통령')">#대통령실</button>
-        <button class="tag tag-subtle" onclick="filterByKeyword('반도체')">#반도체</button>
-        <button class="tag tag-outline" onclick="filterByKeyword('부동산')">#부동산</button>
-        <button class="tag tag-outline" onclick="filterByKeyword('세제')">#세제개편</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- 활성 필터 바 (키워드 클릭 또는 검색 시 노출) -->
-  <div class="filter-status-bar container" id="filterStatusBar" style="display: none;">
-    <div class="filter-chip">
-      <span>선택 키워드: <strong id="filterKeywordText">#원전</strong></span>
-      <button class="filter-clear-btn" id="filterClearBtn">✕ 전체보기</button>
-    </div>
-    <div class="filter-count" id="filterCountText">관련 콘텐츠 정렬됨</div>
-  </div>
 
   <!-- 메인 본문 컨테이너 -->
   <main class="main-content container">
@@ -231,17 +191,17 @@
     </div><!-- //content-wrapper -->
 
 
-    <!-- 섹션 1: 비로그인 실시간 여론조사 (주 1회 주제 변경) -->
+    <!-- 섹션 1: 비로그인 실시간 여론조사 (매시 정각 신규 주제 업데이트) -->
     <section class="bottom-section poll-section" id="section-poll">
       <div class="section-badge-bar">
         <span class="section-tag tag-blue">비로그인 참여</span>
         <h2 class="section-main-title">실시간 여론조사 (O/X 퀵 투표)</h2>
-        <span class="section-help-text">매주 새로운 핵심 정책 이슈를 선정하여 주 1회 주제가 변경됩니다.</span>
+        <span class="section-help-text">매시 정각 최신 시사 및 국정 현안을 반영하여 신규 주제로 업데이트됩니다.</span>
       </div>
 
       <div class="poll-box-card">
         <div class="poll-content-left">
-          <span class="poll-badge-live">금주의 핫이슈</span>
+          <span class="poll-badge-live">정각 핫이슈</span>
           <h3 class="poll-question" id="pollQuestion">
             금주의 핫이슈: 원자력 발전 비중 확대 및 차세대 SMR 수출 정책에 찬성하십니까?
           </h3>
@@ -330,9 +290,11 @@
         <div class="idiom-card-header">
           <div class="idiom-title-row">
             <span class="idiom-seal">바른결</span>
-            <div class="idiom-names">
-              <h3 class="idiom-hanja" id="idiomHanja">破邪顯正</h3>
-              <span class="idiom-hangul" id="idiomHangul">파사현정</span>
+            <div class="idiom-names-inline">
+              <h3 class="idiom-title-combined">
+                <span class="idiom-hanja" id="idiomHanja">破邪顯正</span>
+                <span class="idiom-hangul" id="idiomHangul">(파사현정)</span>
+              </h3>
             </div>
           </div>
           <span class="idiom-date-badge" id="idiomDateBadge">2026.10.02 기준</span>
@@ -436,10 +398,14 @@
       </header>
       
       <div class="inapp-browser-notice-bar" id="browserNoticeBar">
-        <span>💡 해당 언론사의 보안 정책(X-Frame-Options)으로 화면이 제한될 경우, 우측 상단 <strong>[↗ 원문 열기]</strong>를 누르시면 원문 기사를 새 탭에서 바로 확인하실 수 있습니다.</span>
+        <span>⚡ <strong>바른결 인앱 뷰어:</strong> 보안 정책 우회 기술로 원문 기사를 앱 안에서 즉시 열람합니다. (우측 상단 <strong>[↗ 원문 열기]</strong> 지원)</span>
       </div>
 
       <div class="inapp-browser-body">
+        <div class="inapp-loading-spinner" id="inAppLoadingSpinner" style="display: none;">
+          <div class="spinner-circle"></div>
+          <span>기사 페이지를 불러오는 중입니다...</span>
+        </div>
         <iframe id="inAppBrowserIframe" src="" sandbox="allow-same-origin allow-scripts allow-forms allow-popups"></iframe>
       </div>
     </div>
@@ -473,8 +439,8 @@
   <!-- 하단 고정 플로팅 네비게이션 바 (뒤로가기 / 앞으로가기 / 공유하기 복사) -->
   <aside class="bottom-floating-bar" aria-label="하단 네비게이션 도구">
     <div class="bottom-nav-inner container">
-      <!-- 좌측: 뒤로가기 -->
-      <button class="bottom-nav-btn btn-nav-back" onclick="history.back()" title="이전 페이지로 이동">
+      <!-- 좌측: 뒤로가기 (인앱 브라우저 열림 시 닫기, 평소 뒤로가기) -->
+      <button class="bottom-nav-btn btn-nav-back" onclick="handleBottomNavBack()" title="이전으로 이동">
         <span class="nav-btn-icon">←</span>
         <span class="nav-btn-text">뒤로</span>
       </button>

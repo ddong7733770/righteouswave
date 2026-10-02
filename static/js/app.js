@@ -20,7 +20,8 @@ let appState = {
   remainingSeconds: 0,
   lastUpdateHour: "11:00",
   fontSize: localStorage.getItem("bg_font_size") || "normal",
-  theme: localStorage.getItem("bg_theme") || "light"
+  theme: localStorage.getItem("bg_theme") || "light",
+  currentInApp: null // 현재 열려있는 원문 기사 정보 { url, title, mediaName }
 };
 
 // DOM 로드 시 초기화
@@ -30,10 +31,11 @@ document.addEventListener("DOMContentLoaded", () => {
   loadContent();
   updateLiveClock();
   setInterval(updateLiveClock, 1000);
+  checkUrlDeepLink(); // 공유 링크(?article_url=...) 감지하여 원문 모달 자동 오픈
 });
 
 /* ========================================================
-   1. 환경설정 (글자크기 1x / 1.5x / 2.0x & 다크모드)
+   1. 환경설정 (글자크기 기본 / +120% 확대 & 다크모드)
    ======================================================== */
 function initUserPreferences() {
   setFontSize(appState.fontSize);
@@ -41,13 +43,15 @@ function initUserPreferences() {
 }
 
 function setFontSize(size) {
+  // + 버튼 클릭 시 제목 외 본문 120% 확대 적용
+  const targetSize = (size === "large") ? "large" : "normal";
   document.body.classList.remove("font-normal", "font-large", "font-xlarge");
-  document.body.classList.add(`font-${size}`);
-  appState.fontSize = size;
-  localStorage.setItem("bg_font_size", size);
+  document.body.classList.add(`font-${targetSize}`);
+  appState.fontSize = targetSize;
+  localStorage.setItem("bg_font_size", targetSize);
 
   document.querySelectorAll(".font-btn-compact").forEach(btn => {
-    btn.classList.toggle("active", btn.dataset.size === size);
+    btn.classList.toggle("active", btn.dataset.size === targetSize);
   });
 }
 
@@ -249,30 +253,62 @@ function handleItemVote(event, id, type) {
 }
 
 /* ========================================================
-   4. 인앱 브라우저 (외부 사이트 이동 없이 앱 내부 열람)
+   4. 인앱 브라우저 (언론사 보안 헤더 우회 프록시 연동)
    ======================================================== */
 function openInAppBrowser(url, title, mediaName) {
   if (!url || url === "#" || url.startsWith("javascript:")) return;
+
   const modal = document.getElementById("inAppBrowserModal");
   const iframe = document.getElementById("inAppBrowserIframe");
+  const spinner = document.getElementById("inAppLoadingSpinner");
   const titleEl = document.getElementById("browserTitleText");
   const urlEl = document.getElementById("browserUrlText");
   const extBtn = document.getElementById("browserBtnExternal");
 
-  if (modal && iframe) {
-    modal.style.display = "flex";
+  if (!modal || !iframe) return;
+
+  // 현재 열린 기사 상태 저장 (하단 바 복사 버튼 클릭 시 딥링크 생성에 활용)
+  appState.currentInApp = { url, title, mediaName };
+
+  modal.style.display = "flex";
+  if (spinner) spinner.style.display = "flex";
+
+  const displayTitle = title ? (mediaName ? `[${mediaName}] ${title}` : title) : "기사 열람 중";
+  if (titleEl) titleEl.textContent = displayTitle;
+  if (urlEl) urlEl.textContent = url;
+  if (extBtn) extBtn.href = url;
+
+  // 언론사 보안 헤더(X-Frame-Options, CSP)를 우회하기 위해 백엔드 프록시 우선 로드
+  const isHttp = url.startsWith("http://") || url.startsWith("https://");
+  const proxyUrl = isHttp ? `/api/proxy-frame?url=${encodeURIComponent(url)}` : url;
+
+  iframe.onload = () => {
+    if (spinner) spinner.style.display = "none";
+  };
+
+  iframe.onerror = () => {
+    // 프록시 실패 시 원문 직접 시도
     iframe.src = url;
-    if (titleEl) titleEl.textContent = title ? `${mediaName ? `[${mediaName}] ` : ''}${title}` : "기사 열람 중";
-    if (urlEl) urlEl.textContent = url;
-    if (extBtn) extBtn.href = url;
-  }
+    if (spinner) spinner.style.display = "none";
+  };
+
+  iframe.src = proxyUrl;
+
+  // 만약 8초가 지나도 로딩 중이면 스피너 숨김 (무한 로딩 방지)
+  setTimeout(() => {
+    if (spinner) spinner.style.display = "none";
+  }, 8000);
 }
 
 function closeInAppBrowser() {
   const modal = document.getElementById("inAppBrowserModal");
   const iframe = document.getElementById("inAppBrowserIframe");
+  const spinner = document.getElementById("inAppLoadingSpinner");
+
+  appState.currentInApp = null;
   if (modal) modal.style.display = "none";
   if (iframe) iframe.src = "about:blank";
+  if (spinner) spinner.style.display = "none";
 }
 
 function inAppBrowserBack() {
@@ -291,36 +327,74 @@ function inAppBrowserForward() {
 
 function inAppBrowserReload() {
   const iframe = document.getElementById("inAppBrowserIframe");
-  if (iframe) {
-    const src = iframe.src;
-    iframe.src = src;
+  if (iframe && appState.currentInApp) {
+    const spinner = document.getElementById("inAppLoadingSpinner");
+    if (spinner) spinner.style.display = "flex";
+    iframe.src = `/api/proxy-frame?url=${encodeURIComponent(appState.currentInApp.url)}`;
+  }
+}
+
+// 하단 뒤로가기 버튼 스마트 핸들러 (원문 열람 중에는 모달 닫기, 평소에는 뒤로가기)
+function handleBottomNavBack() {
+  if (appState.currentInApp) {
+    closeInAppBrowser();
+  } else {
+    history.back();
   }
 }
 
 /* ========================================================
-   5. 하단 공유하기 및 토스트 알림
+   5. 하단 공유하기 (열린 기사 딥링크 생성 및 주소 복사)
    ======================================================== */
 function handleShareCurrentPage() {
-  const shareUrl = window.location.href;
+  let shareUrl = `${window.location.origin}${window.location.pathname}`;
+  let successMsg = "바른결 주소가 복사되었습니다! 카카오톡 등에 공유해보세요.";
+
+  // 현재 열려 있는 원문 기사가 있는 경우, 수신자가 바로 기사를 볼 수 있는 딥링크 생성
+  if (appState.currentInApp && appState.currentInApp.url) {
+    const cur = appState.currentInApp;
+    shareUrl = `${window.location.origin}${window.location.pathname}?article_url=${encodeURIComponent(cur.url)}&article_title=${encodeURIComponent(cur.title || '')}&article_media=${encodeURIComponent(cur.mediaName || '')}`;
+    successMsg = "열람 중인 기사 링크가 복사되었습니다! 카톡 등에 공유하면 이 기사가 바로 열립니다.";
+  }
+
+  copyTextToClipboard(shareUrl, successMsg);
+}
+
+function copyTextToClipboard(text, successMsg) {
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(shareUrl).then(() => {
-      showToast("바른결 주소가 복사되었습니다! 카카오톡이나 SNS에 공유해보세요.");
+    navigator.clipboard.writeText(text).then(() => {
+      showToast(successMsg);
     }).catch(() => {
-      fallbackCopy(shareUrl);
+      fallbackCopy(text, successMsg);
     });
   } else {
-    fallbackCopy(shareUrl);
+    fallbackCopy(text, successMsg);
   }
 }
 
-function fallbackCopy(text) {
+function fallbackCopy(text, successMsg) {
   const input = document.createElement("input");
   input.value = text;
   document.body.appendChild(input);
   input.select();
   document.execCommand("copy");
   document.body.removeChild(input);
-  showToast("바른결 주소가 복사되었습니다! 카카오톡 등에 붙여넣기 하세요.");
+  showToast(successMsg || "링크가 클립보드에 복사되었습니다!");
+}
+
+// 페이지 진입 시 URL 파라미터(?article_url=...) 감지하여 원문 모달 자동 팝업
+function checkUrlDeepLink() {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const articleUrl = params.get("article_url");
+    if (articleUrl) {
+      const articleTitle = params.get("article_title") || "공유된 기사";
+      const articleMedia = params.get("article_media") || "";
+      setTimeout(() => {
+        openInAppBrowser(articleUrl, articleTitle, articleMedia);
+      }, 350);
+    }
+  } catch (e) {}
 }
 
 let toastTimeout = null;
@@ -333,7 +407,7 @@ function showToast(msg) {
   if (toastTimeout) clearTimeout(toastTimeout);
   toastTimeout = setTimeout(() => {
     toast.style.display = "none";
-  }, 2800);
+  }, 3000);
 }
 
 /* ========================================================
@@ -885,7 +959,7 @@ function renderDailyIdiom(idiom) {
   const modernEl = document.getElementById("idiomModern");
 
   if (hanjaEl) hanjaEl.textContent = idiom.hanja;
-  if (hangulEl) hangulEl.textContent = idiom.hangul;
+  if (hangulEl) hangulEl.textContent = `(${idiom.hangul})`;
   if (meaningEl) meaningEl.textContent = idiom.meaning;
   if (originEl) originEl.textContent = idiom.origin;
   if (modernEl) modernEl.textContent = idiom.modern;
@@ -1020,9 +1094,9 @@ function filterByKeyword(keyword) {
   const searchInput = document.getElementById("searchInput");
   if (searchInput) searchInput.value = keyword;
 
-  const welcomeEl = document.getElementById("welcome-section");
-  if (welcomeEl) {
-    const topOffset = welcomeEl.getBoundingClientRect().top + window.pageYOffset - 110;
+  const targetEl = document.getElementById("section-news");
+  if (targetEl) {
+    const topOffset = targetEl.getBoundingClientRect().top + window.pageYOffset - 110;
     window.scrollTo({ top: topOffset, behavior: "smooth" });
   }
 }
