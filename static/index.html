@@ -14,11 +14,12 @@
 </head>
 <body class="font-normal theme-light">
 
-  <!-- 최상단 고정 슬림 헤더 (바 두께 얇게, 제목 옆 한 줄 인라인 타이머 & 우측 글자크기/테마) -->
+  <!-- 최상단 고정 일체형 헤더 (헤더 + GNB 메뉴 라인이 스크롤 시 화면 상단에 100% 완전 고정) -->
   <header class="main-header sticky-top-header">
+    <!-- 상단 1단: 로고, 타이머(시간만 노출 & 갱신 버튼), 우측 유틸(가/가+, 테마) -->
     <div class="container header-inner-slim">
       
-      <!-- 좌측: 브랜드 로고 & 정각 타이머 인라인 한 줄 결합 -->
+      <!-- 좌측: 브랜드 로고 & 타이머 시간 결합 -->
       <div class="header-left-cluster">
         <a href="#" class="brand-logo-compact" onclick="resetFilter(event)">
           <div class="logo-symbol-compact">결</div>
@@ -28,13 +29,10 @@
           </div>
         </a>
 
-        <!-- 제목 바로 옆 인라인 업데이트 & 갱신 바 (글자와 시간 한 줄 정렬) -->
+        <!-- 요구사항 1: 최근 업데이트 문구/시간 삭제, 다음 갱신 문구 삭제 (시간과 갱신 버튼만 노출) -->
         <div class="header-timer-inline">
           <span class="timer-live-dot"></span>
-          <span class="timer-label-item">최근 업데이트 <strong id="lastUpdateHour">11:00</strong></span>
-          <span class="timer-divider">|</span>
-          <span class="timer-countdown-item">다음 갱신 <span class="countdown-digits-compact" id="countdownTimer">00:34:20</span></span>
-          <span class="timer-divider">|</span>
+          <span class="countdown-digits-compact" id="countdownTimer" title="다음 정각 갱신까지 남은 시간">00:34:20</span>
           <button class="btn-refresh-inline" id="btnRefresh" title="지금 데이터 새로 갱신">
             <span class="refresh-icon">↻</span>
             <span class="refresh-text">지금 갱신</span>
@@ -42,39 +40,37 @@
         </div>
       </div>
 
-      <!-- 우측 끝 정렬: 초소형 글씨크기 조절(가/가+), 다크모드 토글 -->
+      <!-- 우측 끝 정렬: 글씨크기 조절(가/가+), 다크모드 토글 -->
       <div class="header-right-cluster">
-        <!-- 작게 수정된 글자 크기 조정 버튼 (기본 / +120%) -->
-        <div class="font-resizer-compact" title="글자 크기 조절 (+는 본문 120% 확대)">
+        <div class="font-resizer-compact" title="글자 크기 조절 (가+는 120% 확대)">
           <button class="font-btn-compact active" data-size="normal">가</button>
           <button class="font-btn-compact" data-size="large">가+</button>
         </div>
 
-        <!-- 작게 수정된 테마 토글 버튼 -->
         <button class="theme-toggle-compact" id="themeToggle" title="화면 테마 변경 (라이트/다크)">
           <span id="themeIcon">🌙</span>
         </button>
       </div>
 
     </div>
-  </header>
 
-  <!-- 글로벌 네비게이션 바 (GNB - 상단 스티키 고정 노출) -->
-  <nav class="gnb-nav">
-    <div class="container gnb-inner">
-      <ul class="gnb-menu">
-        <li class="nav-item active"><a href="#section-news" data-tab="news">종합 핫이슈</a></li>
-        <li class="nav-item"><a href="#section-news" data-tab="news">핫라인 뉴스</a></li>
-        <li class="nav-item"><a href="#section-youtube" data-tab="youtube">실시간 유튜브</a></li>
-        <li class="nav-item"><a href="#section-community" data-tab="community">오픈 커뮤니티 베스트</a></li>
-        <li class="nav-item"><a href="#section-factcheck" data-tab="factcheck">바른 팩트체크</a></li>
-        <li class="nav-item"><a href="#section-opinion" data-tab="opinion">원포인트 오피니언</a></li>
-        <li class="nav-item"><a href="#section-poll" data-tab="poll">실시간 퀵 여론조사</a></li>
-        <li class="nav-item"><a href="#section-idiom" data-tab="idiom">오늘의 사자성어</a></li>
-        <li class="nav-item"><a href="#section-report" data-tab="report">주간 리포트</a></li>
-      </ul>
-    </div>
-  </nav>
+    <!-- 요구사항 2: 종합 핫이슈 / 핫라인 뉴스 / 실시간 유튜브 등 상위 메뉴 라인 상단 고정 노출 -->
+    <nav class="gnb-nav">
+      <div class="container gnb-inner">
+        <ul class="gnb-menu">
+          <li class="nav-item active"><a href="#section-news" data-tab="all">종합 핫이슈</a></li>
+          <li class="nav-item"><a href="#section-news" data-tab="news">핫라인 뉴스</a></li>
+          <li class="nav-item"><a href="#section-youtube" data-tab="youtube">실시간 유튜브</a></li>
+          <li class="nav-item"><a href="#section-community" data-tab="community">오픈 커뮤니티 베스트</a></li>
+          <li class="nav-item"><a href="#section-factcheck" data-tab="factcheck">바른 팩트체크</a></li>
+          <li class="nav-item"><a href="#section-opinion" data-tab="opinion">원포인트 오피니언</a></li>
+          <li class="nav-item"><a href="#section-poll" data-tab="poll">실시간 퀵 여론조사</a></li>
+          <li class="nav-item"><a href="#section-idiom" data-tab="idiom">오늘의 사자성어</a></li>
+          <li class="nav-item"><a href="#section-report" data-tab="report">주간 리포트</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
 
   <!-- 메인 본문 컨테이너 -->
   <main class="main-content container">

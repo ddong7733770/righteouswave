@@ -127,62 +127,20 @@ body.theme-dark {
   --shadow-glow: 0 14px 36px rgba(142, 112, 255, 0.28);
 }
 
-/* 글자 크기 가변 모드 (+ 버튼 클릭 시 제목 외 모든 글자 크기 기본의 120% 적용) */
+/* 글자 크기 가변 모드 (요구사항 4: 가+ 클릭 시 페이지의 모든 글자 120% 사이즈로 확대) */
+html.font-large {
+  font-size: 120%;
+}
+
 body.font-normal {
   --font-base-size: 15px;
-  --font-body-scale: 1;
+  --font-scale: 1;
 }
 
 body.font-large {
-  --font-base-size: 15px;
-  --font-body-scale: 1.2;
-}
-
-/* + 버튼 활성화 시 제목 외 모든 텍스트(본문, 요약, 리스트, 메타, 버튼 등) 120% 확대 */
-body.font-large p,
-body.font-large .headline-summary,
-body.font-large .straight-news-media,
-body.font-large .straight-news-time,
-body.font-large .yt-channel-name,
-body.font-large .yt-views-badge,
-body.font-large .comm-author,
-body.font-large .comm-meta,
-body.font-large .poll-description,
-body.font-large .poll-meta,
-body.font-large .idiom-text,
-body.font-large .idiom-block-label,
-body.font-large .factcheck-text,
-body.font-large .factcheck-conclusion-text,
-body.font-large .opinion-excerpt,
-body.font-large .opinion-author,
-body.font-large .report-table td,
-body.font-large .report-table th,
-body.font-large .report-insights-list li,
-body.font-large .footer-disclaimer p,
-body.font-large .btn-vote,
-body.font-large .btn-react {
-  font-size: 1.2em !important;
-  line-height: 1.65;
-}
-
-/* 제목(h1, h2, h3, h4, 타이틀 클래스)은 120% 확대에서 제외하여 레이아웃 균형 유지 */
-body.font-large h1,
-body.font-large h2,
-body.font-large h3,
-body.font-large h4,
-body.font-large .logo-title-compact,
-body.font-large .column-title,
-body.font-large .section-main-title,
-body.font-large .headline-title,
-body.font-large .headline-title a,
-body.font-large .straight-news-title,
-body.font-large .yt-card-title,
-body.font-large .comm-title,
-body.font-large .factcheck-title,
-body.font-large .opinion-title,
-body.font-large .sidebar-title,
-body.font-large .poll-question {
-  font-size: inherit;
+  --font-base-size: 18px; /* 기본 15px의 120% */
+  --font-scale: 1.2;
+  zoom: 1.2; /* 크롬, 엣지, 모바일 등 모든 글자와 요소 120% 확대 */
 }
 
 * {
@@ -214,30 +172,31 @@ button {
   font-family: inherit;
 }
 
+/* 요구사항 6: 박스 디자인 - 좌우 여백 사이즈 최소화 (불필요한 공백 제거) */
 .container {
   width: 100%;
-  max-width: 1440px;
+  max-width: 1600px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 10px; /* 좌우 여백 최소화 */
 }
 
 /* ========================================================
-   [2] 최상단 고정 슬림 헤더 (바 두께 얇게, 제목 옆 최근/갱신시간/지금갱신 배치)
+   [2] 최상단 고정 일체형 헤더 (헤더 + GNB 메뉴 라인 상단 고정 노출)
    ======================================================== */
 .sticky-top-header {
-  background-color: rgba(255, 255, 255, 0.96);
+  background-color: rgba(255, 255, 255, 0.98);
   border-bottom: 1px solid var(--border-default);
-  padding: 8px 0;
+  padding: 0;
   position: sticky;
   top: 0;
   z-index: 1000;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 1px 8px rgba(29, 20, 54, 0.04);
+  box-shadow: 0 2px 10px rgba(29, 20, 54, 0.06);
 }
 
 body.theme-dark .sticky-top-header {
-  background-color: rgba(21, 17, 37, 0.96);
+  background-color: rgba(21, 17, 37, 0.98);
   border-color: var(--border-default);
 }
 
@@ -245,7 +204,9 @@ body.theme-dark .sticky-top-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 8px;
+  padding: 7px 0 5px 0;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .header-left-cluster {
@@ -476,23 +437,22 @@ body.theme-dark .countdown-digits-compact {
 }
 
 /* ========================================================
-   [3] 글로벌 네비게이션 바 (GNB - 지니 탭바 스타일)
+   [3] 글로벌 네비게이션 바 (헤더 일체형 고정 탭바)
    ======================================================== */
 .gnb-nav {
-  background-color: var(--bg-elevated);
-  border-bottom: 1px solid var(--border-default);
-  box-shadow: var(--shadow-sm);
-  position: sticky;
-  top: 48px;
-  z-index: 999;
+  background-color: transparent;
+  border-bottom: none;
+  box-shadow: none;
+  position: static;
+  z-index: auto;
 }
 
 .gnb-inner {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 12px;
-  padding: 6px 0;
+  gap: 8px;
+  padding: 4px 0;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
@@ -765,30 +725,30 @@ body.theme-dark .filter-chip {
    [4] 메인 콘텐츠 레이아웃 (3단 그리드 + 우측 사이드바)
    ======================================================== */
 .main-content {
-  margin-top: 26px;
-  margin-bottom: 70px;
+  margin-top: 12px;
+  margin-bottom: 60px;
 }
 
 .content-wrapper {
   display: grid;
-  grid-template-columns: 1fr 320px;
-  gap: 26px;
+  grid-template-columns: 1fr 280px;
+  gap: 10px;
   align-items: start;
 }
 
-/* 3단 메인 그리드 */
+/* 3단 메인 그리드 (좌우 여백 최소화) */
 .grid-layout-3col {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
+  gap: 10px;
 }
 
-/* 공통 컬럼 카드 (Genie content-card) */
+/* 공통 컬럼 카드 (좌우 패딩 10px로 최소화) */
 .card-column {
   background-color: var(--bg-elevated);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
-  padding: 20px;
+  padding: 12px 10px;
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
@@ -802,8 +762,8 @@ body.theme-dark .filter-chip {
 
 .column-header {
   border-bottom: 2px solid var(--color-primary-50);
-  padding-bottom: 12px;
-  margin-bottom: 18px;
+  padding-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .col-title-wrap {
@@ -1187,6 +1147,49 @@ body.theme-dark .yt-topic-badge {
   color: #A78BFA;
 }
 
+.yt-action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* 요구사항 5: 유튜브 원문보기 버튼 스타일 */
+.btn-yt-external {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.74rem;
+  font-weight: 750;
+  color: #DC2626;
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  transition: all var(--duration-fast);
+}
+
+.btn-yt-external:hover {
+  background: #DC2626;
+  color: #FFFFFF;
+  border-color: #DC2626;
+  transform: translateY(-1px);
+}
+
+body.theme-dark .btn-yt-external {
+  background: #381216;
+  border-color: #5C1D24;
+  color: #F87171;
+}
+
+body.theme-dark .btn-yt-external:hover {
+  background: #DC2626;
+  color: #FFFFFF;
+}
+
 /* ========================================================
    [7] 컬럼 3: 오픈 커뮤니티 실시간 베스트
    ======================================================== */
@@ -1492,19 +1495,19 @@ body.theme-dark .rank-top-3 .rank-num {
 }
 
 /* ========================================================
-   [9] 하단 섹션 공통
+   [9] 하단 섹션 공통 (좌우 여백 최소화)
    ======================================================== */
 .bottom-section {
-  margin-top: 45px;
+  margin-top: 30px;
   background-color: var(--bg-elevated);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-xl);
-  padding: 28px;
+  padding: 18px 12px;
   box-shadow: var(--shadow-sm);
 }
 
 .section-badge-bar {
-  margin-bottom: 22px;
+  margin-bottom: 16px;
 }
 
 .section-tag {
@@ -1513,7 +1516,7 @@ body.theme-dark .rank-top-3 .rank-num {
   font-weight: 800;
   padding: 3px 10px;
   border-radius: var(--radius-full);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .tag-blue { background-color: var(--color-primary-50); color: var(--color-primary-500); }
@@ -1537,16 +1540,16 @@ body.theme-dark .tag-blue { background-color: #201544; color: #DDD2FF; }
 }
 
 /* ========================================================
-   [10] 실시간 여론조사 (O/X 퀵 투표 - 지니 인터랙션)
+   [10] 실시간 여론조사 (O/X 퀵 투표 - 좌우 여백 최소화)
    ======================================================== */
 .poll-box-card {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 32px;
+  gap: 16px;
   background-color: var(--bg-subtle);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
-  padding: 26px;
+  padding: 16px 12px;
   align-items: center;
 }
 
@@ -2774,7 +2777,7 @@ body.theme-dark .bottom-floating-bar {
   background: var(--bg-elevated);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-xl);
-  padding: 24px 28px;
+  padding: 16px 12px;
   box-shadow: var(--shadow-sm);
 }
 
@@ -2892,6 +2895,6 @@ body.theme-dark .idiom-hangul {
   background: var(--bg-elevated);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-xl);
-  padding: 24px 28px;
+  padding: 16px 12px;
   box-shadow: var(--shadow-sm);
 }

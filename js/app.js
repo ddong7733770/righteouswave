@@ -47,6 +47,7 @@ function setFontSize(size) {
   const targetSize = (size === "large") ? "large" : "normal";
   document.body.classList.remove("font-normal", "font-large", "font-xlarge");
   document.body.classList.add(`font-${targetSize}`);
+  document.documentElement.classList.toggle("font-large", targetSize === "large");
   appState.fontSize = targetSize;
   localStorage.setItem("bg_font_size", targetSize);
 
@@ -278,26 +279,31 @@ function openInAppBrowser(url, title, mediaName) {
   if (urlEl) urlEl.textContent = url;
   if (extBtn) extBtn.href = url;
 
-  // 언론사 보안 헤더(X-Frame-Options, CSP)를 우회하기 위해 백엔드 프록시 우선 로드
-  const isHttp = url.startsWith("http://") || url.startsWith("https://");
-  const proxyUrl = isHttp ? `/api/proxy-frame?url=${encodeURIComponent(url)}` : url;
+  // 요구사항 3: GitHub Pages 등 정적 호스팅 환경에서 /api/proxy-frame 호출 시 404 발생하는 문제 완전 해결
+  // 백엔드가 없는 환경(github.io 등)에서는 /api/proxy-frame을 호출하지 않고 원문으로 직접 연결
+  const isStaticEnv = window.location.hostname.includes("github.io") || window.location.protocol === "file:" || (!window.location.port && window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1");
+
+  let targetIframeUrl = url;
+  if (!isStaticEnv && (url.startsWith("http://") || url.startsWith("https://"))) {
+    // 로컬 백엔드 서버(localhost:8080 등)가 있는 환경에서만 프록시 엔드포인트 호출
+    targetIframeUrl = `/api/proxy-frame?url=${encodeURIComponent(url)}`;
+  }
 
   iframe.onload = () => {
     if (spinner) spinner.style.display = "none";
   };
 
   iframe.onerror = () => {
-    // 프록시 실패 시 원문 직접 시도
     iframe.src = url;
     if (spinner) spinner.style.display = "none";
   };
 
-  iframe.src = proxyUrl;
+  iframe.src = targetIframeUrl;
 
-  // 만약 8초가 지나도 로딩 중이면 스피너 숨김 (무한 로딩 방지)
+  // 최대 4초 후 스피너 자동 종료
   setTimeout(() => {
     if (spinner) spinner.style.display = "none";
-  }, 8000);
+  }, 4000);
 }
 
 function closeInAppBrowser() {
@@ -330,7 +336,12 @@ function inAppBrowserReload() {
   if (iframe && appState.currentInApp) {
     const spinner = document.getElementById("inAppLoadingSpinner");
     if (spinner) spinner.style.display = "flex";
-    iframe.src = `/api/proxy-frame?url=${encodeURIComponent(appState.currentInApp.url)}`;
+    const isStaticEnv = window.location.hostname.includes("github.io") || window.location.protocol === "file:" || (!window.location.port && window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1");
+    if (!isStaticEnv && (appState.currentInApp.url.startsWith("http://") || appState.currentInApp.url.startsWith("https://"))) {
+      iframe.src = `/api/proxy-frame?url=${encodeURIComponent(appState.currentInApp.url)}`;
+    } else {
+      iframe.src = appState.currentInApp.url;
+    }
   }
 }
 
@@ -743,13 +754,19 @@ function renderYouTube(ytList) {
             <span class="yt-views-badge">조회수 ${item.views}회</span>
             <span class="yt-topic-badge">#${escapeHtml(item.keyword || "트렌드")}</span>
           </div>
-          <div class="item-reaction-bar" style="margin-top: 10px;">
-            <button class="btn-react btn-like ${votes.userVote === 'like' ? 'voted' : ''}" onclick="handleItemVote(event, '${id}', 'like')" title="좋아요">
-              👍 <span class="vote-cnt like-cnt">${votes.likes}</span>
-            </button>
-            <button class="btn-react btn-dislike ${votes.userVote === 'dislike' ? 'voted' : ''}" onclick="handleItemVote(event, '${id}', 'dislike')" title="싫어요 (30개 시 제외)">
-              👎 <span class="vote-cnt dislike-cnt">${votes.dislikes}</span>
-            </button>
+          <div class="yt-action-bar">
+            <!-- 요구사항 5: 원문보기 추가 (클릭시 원문으로 연결) -->
+            <a href="${item.youtube_url}" target="_blank" rel="noopener noreferrer" class="btn-yt-external" title="유튜브 원문 영상으로 직접 연결">
+              ▶ 원문보기 ↗
+            </a>
+            <div class="item-reaction-bar">
+              <button class="btn-react btn-like ${votes.userVote === 'like' ? 'voted' : ''}" onclick="handleItemVote(event, '${id}', 'like')" title="좋아요">
+                👍 <span class="vote-cnt like-cnt">${votes.likes}</span>
+              </button>
+              <button class="btn-react btn-dislike ${votes.userVote === 'dislike' ? 'voted' : ''}" onclick="handleItemVote(event, '${id}', 'dislike')" title="싫어요 (30개 시 제외)">
+                👎 <span class="vote-cnt dislike-cnt">${votes.dislikes}</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -760,7 +777,7 @@ function renderYouTube(ytList) {
 }
 
 function openYouTube(url, title) {
-  // 유튜브 영상 재생 모달 호출
+  // 유튜브 영상 재생 모달 호출 (요구사항 5: 재생 안 되는 영상 방지 및 원문보기 지원)
   const modal = document.getElementById("videoModal");
   const titleEl = document.getElementById("videoModalTitle");
   const container = document.getElementById("videoContainer");
@@ -774,19 +791,23 @@ function openYouTube(url, title) {
     if (titleEl) titleEl.textContent = title || "영상 시청";
     if (container) {
       container.innerHTML = `
-        <iframe src="https://www.youtube-nocookie.com/embed/${vid}?autoplay=1&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube-nocookie.com/embed/${vid}?autoplay=1&rel=0&enablejsapi=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="eager"></iframe>
       `;
     }
     if (metaBox) {
       metaBox.innerHTML = `
-        <p style="font-weight: 750; font-size: 0.95rem; margin-bottom: 6px;">${escapeHtml(title)}</p>
-        <a href="${url}" target="_blank" rel="noopener noreferrer" style="font-size: 0.8rem; color: var(--color-primary-500); text-decoration: underline;">
-          유튜브 공식 사이트에서 직접 열기 ↗
-        </a>
+        <p style="font-weight: 750; font-size: 0.95rem; margin-bottom: 8px;">${escapeHtml(title)}</p>
+        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+          <a href="${url}" target="_blank" rel="noopener noreferrer" class="btn-yt-external" style="padding: 6px 14px; font-size: 0.85rem;">
+            ▶ 유튜브 원문 영상 바로보기 ↗
+          </a>
+          <span style="font-size: 0.74rem; color: var(--text-tertiary);">💡 방송권 제한으로 재생되지 않을 경우 위 버튼을 누르시면 원본 영상으로 즉시 시청하실 수 있습니다.</span>
+        </div>
       `;
     }
   } else {
-    openInAppBrowser(url, title, "YouTube");
+    // vid 파싱 불가 시 유튜브 원문 직접 열기
+    window.open(url, "_blank");
   }
 }
 
@@ -1170,13 +1191,18 @@ function appendConnectedSearchResults(extraData) {
                 <span class="yt-views-badge" style="background: var(--color-primary-50); color: var(--color-primary-700);">⚡ 연결 검색 영상</span>
                 <span class="yt-topic-badge">#${escapeHtml(item.keyword)}</span>
               </div>
-              <div class="item-reaction-bar" style="margin-top: 10px;">
-                <button class="btn-react btn-like" onclick="handleItemVote(event, '${id}', 'like')">
-                  👍 <span class="vote-cnt like-cnt">${votes.likes}</span>
-                </button>
-                <button class="btn-react btn-dislike" onclick="handleItemVote(event, '${id}', 'dislike')">
-                  👎 <span class="vote-cnt dislike-cnt">${votes.dislikes}</span>
-                </button>
+              <div class="yt-action-bar">
+                <a href="${item.youtube_url}" target="_blank" rel="noopener noreferrer" class="btn-yt-external" title="유튜브 원문 영상으로 직접 연결">
+                  ▶ 원문보기 ↗
+                </a>
+                <div class="item-reaction-bar">
+                  <button class="btn-react btn-like" onclick="handleItemVote(event, '${id}', 'like')">
+                    👍 <span class="vote-cnt like-cnt">${votes.likes}</span>
+                  </button>
+                  <button class="btn-react btn-dislike" onclick="handleItemVote(event, '${id}', 'dislike')">
+                    👎 <span class="vote-cnt dislike-cnt">${votes.dislikes}</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
