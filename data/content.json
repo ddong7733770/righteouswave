@@ -1,9 +1,9 @@
 {
   "status": {
-    "last_update": "08:00",
-    "next_update": "09:00",
-    "remaining_seconds": 2314,
-    "current_time_str": "2026-10-02 08:21:25"
+    "last_update": "09:00",
+    "next_update": "10:00",
+    "remaining_seconds": 2442,
+    "current_time_str": "2026-10-02 09:19:17"
   },
   "news": {
     "headline": {
@@ -15,14 +15,6 @@
       "thumbnail": null
     },
     "list": [
-      {
-        "title": "左 머스크, 右 젠슨 황... 트럼프판 ‘AI 권력 지형도’",
-        "summary": "左 머스크, 右 젠슨 황... 트럼프판 ‘AI 권력 지형도’&nbsp;&nbsp;조선일보",
-        "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxON3ZQT0VCZzJzNnJ2UElUX2c5YTBBQUVVRjNrVnpxUTlJR3Vtc3c4VGhJd0JWVWRaQmFzNnUtNXRpRXdvWjFxNzFKN2dERFhFbzFvMUpPajYtX1ZfSkZfSkY1NzA1M2IwTUY2a3FscUhEWmR0VDJ3c2RPcnVhWHRzTjZtYUQ1ajlkZ05jU0tsQ3VOT2Y4c1E2R2dEcGtzZw?oc=5",
-        "media": "조선일보",
-        "time": "06:33",
-        "thumbnail": null
-      },
       {
         "title": "국정원 \"김정은 140kg대 초고도비만, 주애 160cm, 50kg 넘어\"",
         "summary": "국정원 \"김정은 140kg대 초고도비만, 주애 160cm, 50kg 넘어\"&nbsp;&nbsp;조선일보",
@@ -72,6 +64,14 @@
         "thumbnail": null
       },
       {
+        "title": "李대통령, 지뢰폭발에 北 언급 없이 \"불의의 사고, 마음 아프다\"",
+        "summary": "李대통령, 지뢰폭발에 北 언급 없이 \"불의의 사고, 마음 아프다\"&nbsp;&nbsp;조선일보",
+        "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxOXy1fOWxiMUFBcVNoaFFkZ1BRajR2NWd1SFdZVkpUbkJlWEtEY0Y1Ny1BWlg1TUQ1V1I1X29NSmdnUjk2UldwQXZ3dzJuVVFHcjNpWUY3b2pkRkNxNFZLZHh2X0NXTGR3Wl9KbDhZQzBRdVRkYTVxUnhSMmZiaFF0aEtiTGlpS25MbGZuTV9aaHI?oc=5",
+        "media": "조선일보",
+        "time": "02:52",
+        "thumbnail": null
+      },
+      {
         "title": "법원 \"동대구역 박정희 동상 철거할 필요 없다\"",
         "summary": "법원 \"동대구역 박정희 동상 철거할 필요 없다\"&nbsp;&nbsp;조선일보",
         "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQeEZTdFVsam8yS0JtOHFmWW1BS3JPSkxGbGNUN1dFRklnX3l0U2RYSUZ4dGVzR3p3cUpiQ0xMYzZvRzgyc1RvdmY0by1mUWdrUWpWS0hod2luUHUySmwyQkEwT0ljY1NzNUJzalRxekJuT3BjbVRPaXg1ZWJsWmNfbDZ2aE9zdw?oc=5",
@@ -88,32 +88,40 @@
         "thumbnail": null
       },
       {
-        "title": "트럼프 ‘韓 알래스카 LNG 투자’ 발언에... 김정관 “美에 이의제기, 상업적 합리성 있어야 투자” - 조선비즈",
-        "summary": "트럼프 ‘韓 알래스카 LNG 투자’ 발언에... 김정관 “美에 이의제기, 상업적 합리성 있어야 투자” - 조선비즈&nbsp;&nbsp;Chosunbiz",
-        "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQcS1PU2R5QjhmQVZFT1ZRTDRzNkR0cHhLalVvdzBqRTJseHd6Q0VXNDc5ZUt1dGhhY2hubjQ3THoxTEhqclVzTWtVeHVOVEZOS3AxUVdRX2hyZk5TbERhcEZWX18xRkhoTjdXU1FqOGh2SEFxVGQ2eWtidENXOGxFd2J5TkVuQdIBmgFBVV95cUxPR2hobFBwWFNmSnB2U3NETkIyMUU1b0dPZUU5UHlyM2F0dGxsUVRCb0FOZDV2LWtRZXdjVVpYWnlVeG9jNS1NX0VfdHk3UUtsMVY0SVRQYXl4dWdjR2lTQl9pVUFiY2NLakZ0QTlKeDdnRFdNekdUV29WMGxuNW1pcUNoLUI3dk9vZGJlbTdac3JSQlR6aUxZMkZ3?oc=5",
+        "title": "[단독] 정부 2000억 쓴 ‘국가대표 AI’ 개편...5조 들여 SPC 설립 검토",
+        "summary": "[단독] 정부 2000억 쓴 ‘국가대표 AI’ 개편...5조 들여 SPC 설립 검토&nbsp;&nbsp;조선일보",
+        "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPdmVNYjlTWkg5UFZ1eHNmbHRXNWJuZVVWR3dlSFVOV0J0SUVPTm84TjFZM2FWZll3N2JoQXg2OWxqRFZUd0NzYmd5a1ozblZHVXA3czBGb0FOelIzSHVoUWVrdTNMVEdEaDBVSkNWWGR6TnItUjFyRUtxc1RQcGRvc2RWaw?oc=5",
         "media": "조선일보",
-        "time": "09:53",
+        "time": "06:49",
         "thumbnail": null
       },
       {
-        "title": "[단독] 뉴진스 하니에 “사오정 X”…악플러 10만원 배상 판결",
-        "summary": "[단독] 뉴진스 하니에 “사오정 X”…악플러 10만원 배상 판결&nbsp;&nbsp;joongang.co.kr",
-        "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBGOGowakJhMDhDRDVlS1d4dHExaG1iLUZwaW8tWXRzT0N2ZnJUdl80MlduY0tYbG1zN2tscDFBVmwxMmlSMVNfaXYxYXVSZkJtRjB3ZFhB?oc=5",
-        "media": "중앙일보",
-        "time": "02:28",
+        "title": "左 머스크, 右 젠슨 황... 트럼프판 ‘AI 권력 지형도’",
+        "summary": "左 머스크, 右 젠슨 황... 트럼프판 ‘AI 권력 지형도’&nbsp;&nbsp;조선일보",
+        "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxON3ZQT0VCZzJzNnJ2UElUX2c5YTBBQUVVRjNrVnpxUTlJR3Vtc3c4VGhJd0JWVWRaQmFzNnUtNXRpRXdvWjFxNzFKN2dERFhFbzFvMUpPajYtX1ZfSkZfSkY1NzA1M2IwTUY2a3FscUhEWmR0VDJ3c2RPcnVhWHRzTjZtYUQ1ajlkZ05jU0tsQ3VOT2Y4c1E2R2dEcGtzZw?oc=5",
+        "media": "조선일보",
+        "time": "06:33",
         "thumbnail": null
       },
       {
         "title": "‘이재명표’ 공공의대, 전북 남원에 세운다…“29년 개교 추진”",
-        "summary": "‘이재명표’ 공공의대, 전북 남원에 세운다…“29년 개교 추진”&nbsp;&nbsp;joongang.co.kr",
+        "summary": "‘이재명표’ 공공의대, 전북 남원에 세운다…“29년 개교 추진”&nbsp;&nbsp;중앙일보",
         "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1OekM2TGdaZTFvOTZVekcxN0hya3ZJOEZjUVpwN2txV0Z3VEthV2pBSkh1M1BFbmZpRHZXTEtaYWdybk1tcTN0OF9QOHlOajRjX05vVzF3?oc=5",
         "media": "중앙일보",
         "time": "02:40",
         "thumbnail": null
       },
       {
+        "title": "[단독] 뉴진스 하니에 “사오정 X”…악플러 10만원 배상 판결",
+        "summary": "[단독] 뉴진스 하니에 “사오정 X”…악플러 10만원 배상 판결&nbsp;&nbsp;중앙일보",
+        "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBGOGowakJhMDhDRDVlS1d4dHExaG1iLUZwaW8tWXRzT0N2ZnJUdl80MlduY0tYbG1zN2tscDFBVmwxMmlSMVNfaXYxYXVSZkJtRjB3ZFhB?oc=5",
+        "media": "중앙일보",
+        "time": "02:28",
+        "thumbnail": null
+      },
+      {
         "title": "이 대통령 “많이들 함께 해주세요, 좌아하게”…SNS 글 무슨 뜻",
-        "summary": "이 대통령 “많이들 함께 해주세요, 좌아하게”…SNS 글 무슨 뜻&nbsp;&nbsp;joongang.co.kr",
+        "summary": "이 대통령 “많이들 함께 해주세요, 좌아하게”…SNS 글 무슨 뜻&nbsp;&nbsp;중앙일보",
         "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE5RbVQyeVFuVkJFaE1lazdOMEFXZm5XYklLSXNFY0VqakZMam1nRHNtQnlQVHd1TXJURUlvejZ6ZjYxYUJLUVhEZHlmenBLcVNkelRQY3V3?oc=5",
         "media": "중앙일보",
         "time": "03:04",
@@ -121,101 +129,69 @@
       },
       {
         "title": "‘차기 대통령’ 적합도…한동훈 18.1% 김민석 15.2% 오세훈 10.5% [에이스리서치]",
-        "summary": "‘차기 대통령’ 적합도…한동훈 18.1% 김민석 15.2% 오세훈 10.5% [에이스리서치]&nbsp;&nbsp;joongang.co.kr",
+        "summary": "‘차기 대통령’ 적합도…한동훈 18.1% 김민석 15.2% 오세훈 10.5% [에이스리서치]&nbsp;&nbsp;중앙일보",
         "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFB2eHlucXc3bGFwSUsyZmlCZFdPUGNDLUlxLVpRaGtFVGpZR0lUSlFUaTRWLWRqNDJCYXdjMWxONmtpSzA3dndPREprRjVKSmpLOXdxUjNn?oc=5",
         "media": "중앙일보",
         "time": "01:07",
-        "thumbnail": null
-      },
-      {
-        "title": "“부산병 걸렸다”…외국인 290만 몰리자 유통가 ‘부산 상륙작전’",
-        "summary": "“부산병 걸렸다”…외국인 290만 몰리자 유통가 ‘부산 상륙작전’&nbsp;&nbsp;joongang.co.kr",
-        "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9mS3NlcnJPQXZiT011STh4ckNaNHdfTEpaUjMtaEhCR3JYU0JiczNNRXN3dEFSMWV6cGF5OS1YZDlCYS1xRDRXb0lnZTNKSi1oaGo2LVV3?oc=5",
-        "media": "중앙일보",
-        "time": "20:00",
         "thumbnail": null
       }
     ]
   },
   "youtube": [
     {
-      "id": "89mQkb8LGGA",
-      "title": "[자막] \"외교는 송영길, 국방은 김병주!\" 이재명 대통령, 청와대 특보 전격 위촉… 자주국방·실용외교 전면에 세운 파격 인선",
-      "channel": "춘천MBC뉴스",
-      "views": "797,310",
-      "views_raw": 797310,
-      "upload_time": "18시간 전",
-      "duration": "5:41",
-      "thumbnail": "https://i.ytimg.com/vi/89mQkb8LGGA/hqdefault.jpg",
-      "youtube_url": "https://www.youtube.com/watch?v=89mQkb8LGGA",
+      "id": "-0x1If0i4BQ",
+      "title": "[🔴아투 LIVE] 이진숙, 이재명 대통령 관련 긴급 기자회견_261001",
+      "channel": "아시아투데이",
+      "views": "545,789",
+      "views_raw": 545789,
+      "upload_time": "스트리밍 시간: 9시간 전",
+      "duration": "7:54:05",
+      "thumbnail": "https://i.ytimg.com/vi/-0x1If0i4BQ/hqdefault.jpg",
+      "youtube_url": "https://www.youtube.com/watch?v=-0x1If0i4BQ",
       "keyword": "대통령"
     },
     {
-      "id": "MAwjUJDP0j0",
-      "title": "대통령 발언, 플래시 터졌다!... 기자회견 웅성인 대통령 '결정 발언'은?",
-      "channel": "JTV뉴스",
-      "views": "604,543",
-      "views_raw": 604543,
-      "upload_time": "4일 전",
-      "duration": "20:09",
-      "thumbnail": "https://i.ytimg.com/vi/MAwjUJDP0j0/hqdefault.jpg",
-      "youtube_url": "https://www.youtube.com/watch?v=MAwjUJDP0j0",
+      "id": "BxRYdB0jcoQ",
+      "title": "[🔴라이브를 켜라] [속보] 주진우 \"이재명 대통령 공무상 비밀누설죄 고발\" / 채널A",
+      "channel": "채널A News",
+      "views": "390,134",
+      "views_raw": 390134,
+      "upload_time": "스트리밍 시간: 12시간 전",
+      "duration": "11:50:05",
+      "thumbnail": "https://i.ytimg.com/vi/BxRYdB0jcoQ/hqdefault.jpg",
+      "youtube_url": "https://www.youtube.com/watch?v=BxRYdB0jcoQ",
       "keyword": "대통령"
     },
     {
       "id": "-SygoSq3zgQ",
       "title": "'전율 폭발' 이재명 대통령 국군의날 기념식 입장샷 #Shorts",
       "channel": "오마이TV",
-      "views": "380,863",
-      "views_raw": 380863,
-      "upload_time": "22시간 전",
+      "views": "387,027",
+      "views_raw": 387027,
+      "upload_time": "23시간 전",
       "duration": "2:01",
       "thumbnail": "https://i.ytimg.com/vi/-SygoSq3zgQ/hqdefault.jpg",
       "youtube_url": "https://www.youtube.com/watch?v=-SygoSq3zgQ",
       "keyword": "대통령"
     },
     {
-      "id": "zWzbuNO0rbk",
-      "title": "대통령 지켜보는데…드론 2대 추락 / 채널A / 뉴스A",
-      "channel": "채널A News",
-      "views": "290,165",
-      "views_raw": 290165,
-      "upload_time": "11시간 전",
-      "duration": "1:53",
-      "thumbnail": "https://i.ytimg.com/vi/zWzbuNO0rbk/hqdefault.jpg",
-      "youtube_url": "https://www.youtube.com/watch?v=zWzbuNO0rbk",
-      "keyword": "대통령"
-    },
-    {
       "id": "4XJFD0Q5-gU",
       "title": "[현장] \"자주국방 실현! 대체불가 국군!\" 이재명 대통령, 국군의 날 3축 체계·K-방산 첨단 무기 사열하며 펼친 역대급 열병식 풀영상",
       "channel": "춘천MBC뉴스",
-      "views": "242,515",
-      "views_raw": 242515,
-      "upload_time": "21시간 전",
+      "views": "244,409",
+      "views_raw": 244409,
+      "upload_time": "22시간 전",
       "duration": "9:15",
       "thumbnail": "https://i.ytimg.com/vi/4XJFD0Q5-gU/hqdefault.jpg",
       "youtube_url": "https://www.youtube.com/watch?v=4XJFD0Q5-gU",
       "keyword": "대통령"
     },
     {
-      "id": "4l9zgK-hVos",
-      "title": "\"대통령이 국민을 속였다\" 유시민 발언에 결국 청와대 나섰다..법적 대응 검토하나 / SBS 뉴스속보",
-      "channel": "SBS 뉴스",
-      "views": "226,389",
-      "views_raw": 226389,
-      "upload_time": "스트리밍 시간: 6일 전",
-      "duration": "17:57",
-      "thumbnail": "https://i.ytimg.com/vi/4l9zgK-hVos/hqdefault.jpg",
-      "youtube_url": "https://www.youtube.com/watch?v=4l9zgK-hVos",
-      "keyword": "대통령"
-    },
-    {
       "id": "OYRRdm84qYw",
       "title": "\"가슴이 벅차서..\" 이재명 대통령 '감격'! 대한민국 이지스 체계의 완성 '대호 김종서함' 출격! 19년 만에 마침표을 찍다!",
       "channel": "전주MBC News",
-      "views": "177,793",
-      "views_raw": 177793,
+      "views": "178,895",
+      "views_raw": 178895,
       "upload_time": "1일 전",
       "duration": "27:06",
       "thumbnail": "https://i.ytimg.com/vi/OYRRdm84qYw/hqdefault.jpg",
@@ -226,8 +202,8 @@
       "id": "gIL8YEkEwcM",
       "title": "\"돈 아끼려 새벽 출근, 이분들 교통비 깎아줍시다\" 대통령 진심에 기획예산처 장관이 '울컥'한 이유",
       "channel": "굿뉴스",
-      "views": "151,737",
-      "views_raw": 151737,
+      "views": "152,556",
+      "views_raw": 152556,
       "upload_time": "2일 전",
       "duration": "8:35",
       "thumbnail": "https://i.ytimg.com/vi/gIL8YEkEwcM/hqdefault.jpg",
@@ -235,15 +211,39 @@
       "keyword": "대통령"
     },
     {
+      "id": "cJh5Czw6fAk",
+      "title": "국방장관이 퇴장방향 안내하자 이 대통령 '급선회'한 이유...? (감동)😭",
+      "channel": "스픽스",
+      "views": "104,883",
+      "views_raw": 104883,
+      "upload_time": "15시간 전",
+      "duration": "0:22",
+      "thumbnail": "https://i.ytimg.com/vi/cJh5Czw6fAk/hqdefault.jpg",
+      "youtube_url": "https://www.youtube.com/watch?v=cJh5Czw6fAk",
+      "keyword": "대통령"
+    },
+    {
       "id": "PZWxrOYqCYk",
       "title": "\"취임 후 7번째\" 이재명 대통령 대국민 기자회견 실시간 생중계 / SBS 실시간 라이브",
       "channel": "SBS 뉴스",
-      "views": "98,499",
-      "views_raw": 98499,
+      "views": "98,498",
+      "views_raw": 98498,
       "upload_time": "스트리밍 시간: 13일 전",
       "duration": "1:43:18",
       "thumbnail": "https://i.ytimg.com/vi/PZWxrOYqCYk/hqdefault.jpg",
       "youtube_url": "https://www.youtube.com/watch?v=PZWxrOYqCYk",
+      "keyword": "대통령"
+    },
+    {
+      "id": "UmmEUC09MYk",
+      "title": "\"10시 30분 시작\" 이재명 대통령 대국민 기자회견 30분 연기..\"마지막까지 발언 가다듬는다\" / SBS 실시간 라이브",
+      "channel": "SBS 뉴스",
+      "views": "93,809",
+      "views_raw": 93809,
+      "upload_time": "스트리밍 시간: 13일 전",
+      "duration": "9:07:54",
+      "thumbnail": "https://i.ytimg.com/vi/UmmEUC09MYk/hqdefault.jpg",
+      "youtube_url": "https://www.youtube.com/watch?v=UmmEUC09MYk",
       "keyword": "대통령"
     }
   ],
@@ -253,8 +253,8 @@
       "source_code": "dc",
       "favicon": "https://gall.dcinside.com/favicon.ico",
       "title": "[유갤] 전쟁나길 바라는 북한주민들",
-      "views": "4884",
-      "recommends": "+15",
+      "views": "9181",
+      "recommends": "+43",
       "time": "07:30",
       "link": "https://gall.dcinside.com/board/view/?id=dcbest&no=467299&_dcbest=1&page=1",
       "badge": "실시간 베스트"
@@ -264,8 +264,8 @@
       "source_code": "dc",
       "favicon": "https://gall.dcinside.com/favicon.ico",
       "title": "[더갤] 경찰, 카레이서에게 도주차량 추격 훈련받아",
-      "views": "1902",
-      "recommends": "+16",
+      "views": "3044",
+      "recommends": "+21",
       "time": "07:20",
       "link": "https://gall.dcinside.com/board/view/?id=dcbest&no=467298&_dcbest=1&page=1",
       "badge": "실시간 베스트"
@@ -275,8 +275,8 @@
       "source_code": "dc",
       "favicon": "https://gall.dcinside.com/favicon.ico",
       "title": "[취갤] 범죄심리 전문가 박지선 박사가 꼽은 국내영화속 범죄자 캐릭터",
-      "views": "8073",
-      "recommends": "+18",
+      "views": "9209",
+      "recommends": "+22",
       "time": "01:10",
       "link": "https://gall.dcinside.com/board/view/?id=dcbest&no=467284&_dcbest=1&page=1",
       "badge": "실시간 베스트"
@@ -286,8 +286,8 @@
       "source_code": "dc",
       "favicon": "https://gall.dcinside.com/favicon.ico",
       "title": "[더갤] MBC) 외국인, 한국약 쇼핑은 필수...약국마다 문전성시",
-      "views": "6368",
-      "recommends": "+18",
+      "views": "7012",
+      "recommends": "+19",
       "time": "00:10",
       "link": "https://gall.dcinside.com/board/view/?id=dcbest&no=467272&_dcbest=1&page=1",
       "badge": "실시간 베스트"
@@ -297,7 +297,7 @@
       "source_code": "dc",
       "favicon": "https://gall.dcinside.com/favicon.ico",
       "title": "[중갤] 어린이 재활병원 의사 ‘구인난’…적자 보전도 난제",
-      "views": "4574",
+      "views": "4896",
       "recommends": "+8",
       "time": "10.01",
       "link": "https://gall.dcinside.com/board/view/?id=dcbest&no=467260&_dcbest=1&page=1",
@@ -308,51 +308,40 @@
       "source_code": "dc",
       "favicon": "https://gall.dcinside.com/favicon.ico",
       "title": "[싱갤] 싱글벙글 북한 축구선수 정대세 근황.JPG",
-      "views": "33851",
-      "recommends": "+168",
+      "views": "35400",
+      "recommends": "+176",
       "time": "10.01",
       "link": "https://gall.dcinside.com/board/view/?id=dcbest&no=467256&_dcbest=1&page=1",
-      "badge": "실시간 베스트"
-    },
-    {
-      "source": "디시인사이드",
-      "source_code": "dc",
-      "favicon": "https://gall.dcinside.com/favicon.ico",
-      "title": "[싱갤] 핀란드 군인 장교가 게임을 개발해서 나온 결과물",
-      "views": "14018",
-      "recommends": "+55",
-      "time": "10.01",
-      "link": "https://gall.dcinside.com/board/view/?id=dcbest&no=467244&_dcbest=1&page=1",
-      "badge": "실시간 베스트"
-    },
-    {
-      "source": "디시인사이드",
-      "source_code": "dc",
-      "favicon": "https://gall.dcinside.com/favicon.ico",
-      "title": "[클갤] 이재명 대통령 좌아하게 듣고 화들짝 놀라는 4050사이트",
-      "views": "15285",
-      "recommends": "+21",
-      "time": "10.01",
-      "link": "https://gall.dcinside.com/board/view/?id=dcbest&no=467238&_dcbest=1&page=1",
-      "badge": "실시간 베스트"
-    },
-    {
-      "source": "디시인사이드",
-      "source_code": "dc",
-      "favicon": "https://gall.dcinside.com/favicon.ico",
-      "title": "[중갤] 성매매→강간치상' '술 1병'→200만원…검찰 보완수사의 마지막 기록",
-      "views": "11590",
-      "recommends": "+68",
-      "time": "10.01",
-      "link": "https://gall.dcinside.com/board/view/?id=dcbest&no=467236&_dcbest=1&page=1",
       "badge": "실시간 베스트"
     },
     {
       "source": "보배드림",
       "source_code": "bobae",
       "favicon": "https://www.bobaedream.co.kr/favicon.ico",
+      "title": "'재입대' 하겠다던 송민호, 1심 판결 나오자 반응이‥",
+      "views": "1715",
+      "recommends": "+베스트",
+      "time": "08:48",
+      "link": "https://www.bobaedream.co.kr/view?code=best&No=1036469&vdate=",
+      "badge": "보배 베스트"
+    },
+    {
+      "source": "보배드림",
+      "source_code": "bobae",
+      "favicon": "https://www.bobaedream.co.kr/favicon.ico",
+      "title": "퇴사하고싶다는 소방구급대원",
+      "views": "1859",
+      "recommends": "+베스트",
+      "time": "08:33",
+      "link": "https://www.bobaedream.co.kr/view?code=best&No=1036466&vdate=",
+      "badge": "보배 베스트"
+    },
+    {
+      "source": "보배드림",
+      "source_code": "bobae",
+      "favicon": "https://www.bobaedream.co.kr/favicon.ico",
       "title": "경찰이 36년을  찾았지만 못 찾아",
-      "views": "10992",
+      "views": "13931",
       "recommends": "+베스트",
       "time": "01:06",
       "link": "https://www.bobaedream.co.kr/view?code=best&No=1036388&vdate=",
@@ -363,7 +352,7 @@
       "source_code": "bobae",
       "favicon": "https://www.bobaedream.co.kr/favicon.ico",
       "title": "신고자 연락처, 1900명 오픈채팅방에 올린 경찰관 대기발령",
-      "views": "9707",
+      "views": "11154",
       "recommends": "+베스트",
       "time": "10/01",
       "link": "https://www.bobaedream.co.kr/view?code=best&No=1036381&vdate=",
@@ -374,10 +363,21 @@
       "source_code": "bobae",
       "favicon": "https://www.bobaedream.co.kr/favicon.ico",
       "title": "이재명 정부가 미친 이유",
-      "views": "6886",
+      "views": "8722",
       "recommends": "+베스트",
       "time": "10/01",
       "link": "https://www.bobaedream.co.kr/view?code=best&No=1036391&vdate=",
+      "badge": "보배 베스트"
+    },
+    {
+      "source": "보배드림",
+      "source_code": "bobae",
+      "favicon": "https://www.bobaedream.co.kr/favicon.ico",
+      "title": "검찰개혁이 독립운동보다 어렵습니다.",
+      "views": "1907",
+      "recommends": "+베스트",
+      "time": "10/01",
+      "link": "https://www.bobaedream.co.kr/view?code=best&No=1036400&vdate=",
       "badge": "보배 베스트"
     }
   ],
@@ -455,6 +455,16 @@
   ],
   "fact_check": [
     {
+      "id": "fact-4",
+      "badge": "노동·경제",
+      "title": "주52시간 탄력근무 확대로 노동자 건강권이 심각하게 침해되는가?",
+      "claim": "근로시간 유연화가 도입되면 모든 사업장에서 주69시간 초과근무가 강제된다?",
+      "fact": "제도 개편안은 업종별 노사 합의 시 특정 집중근무 기간을 인정하되 11시간 연속휴식 의무화 및 분기/연간 총 근로시간 한도를 감축하는 구조로, 강제 초과근무 주장은 사실 왜곡임.",
+      "evidence": "고용노동부 근로시간 개편안 세부안, 독일·프랑스 연장근로 탄력운영 규정 비교",
+      "conclusion": "왜곡된 주장 (노사 자율 선택 및 연속휴식 보장 결합)",
+      "updated": "오늘 00:00 갱신"
+    },
+    {
       "id": "fact-1",
       "badge": "원전·에너지",
       "title": "원자력 발전 확대가 전력 단가 인하에 미치는 영향은?",
@@ -462,7 +472,7 @@
       "fact": "전력거래소 실적 통계상 원전의 발전원별 정산단가는 kWh당 55~65원 수준으로, 태양광·풍력(140~180원) 대비 1/3 수준으로 가장 저렴함.",
       "evidence": "전력거래소 전력시장 전력거래 정산단가 공시 데이터, IEA(국제에너지기구) 발전단가(LCOE) 보고서",
       "conclusion": "사실 아님 (원전이 전력 단가 안정의 핵심 축)",
-      "updated": "오늘 09:00"
+      "updated": "오늘 00:00 갱신"
     },
     {
       "id": "fact-2",
@@ -472,7 +482,7 @@
       "fact": "OECD 38개국 중 25개국이 글로벌 투자 유치를 위해 법인세를 인하했으며, 한국조세재정연구원 분석 결과 법인세 인하 시 중장기 GDP 상승 및 외국인 직접투자(FDI) 증가, 고용 창출 선순환 효과 입증.",
       "evidence": "OECD Tax Policy Studies No. 28, 한국조세재정연구원 '법인세율 변화가 투자 및 고용에 미치는 실증분석'",
       "conclusion": "대체로 사실 아님 (투자 촉진 및 일자리 창출 효과)",
-      "updated": "오늘 10:00"
+      "updated": "오늘 00:00 갱신"
     },
     {
       "id": "fact-3",
@@ -482,7 +492,7 @@
       "fact": "캠프 데이비드 협정 이후 공급망 조기경보시스템(EWS) 구축으로 핵심 광물 및 첨단 소재 수급 리스크가 감소했으며, 디리스킹(De-risking) 기조 하에 실리적 무역 흑자 품목 재편 진행 중.",
       "evidence": "산업통상자원부 첨단산업 공급망 안정화 통계, 대외경제정책연구원(KIEP) 전략보고서",
       "conclusion": "과장된 주장 (첨단기술 안보 및 공급망 보호의 필수 안전판)",
-      "updated": "오늘 11:00"
+      "updated": "오늘 00:00 갱신"
     }
   ],
   "opinion": [
@@ -495,12 +505,12 @@
       "summary": "무분별한 현금성 재정 지출은 결국 청년세대의 부채와 인플레이션으로 귀결됩니다. 정부의 역할은 기업의 발목을 잡는 규제를 걷어내고 민간 활력을 복원하는 데 있습니다.",
       "time": "오늘 08:30 (아침 엄선)",
       "read_time": "3분",
-      "link": "https://www.chosun.com/opinion/"
+      "link": "https://www.chosun.com/opinion/editorial/"
     },
     {
       "id": "op-2",
       "category": "안보와 국익",
-      "author": "동아일보 칼럼",
+      "author": "동아일보 사설",
       "media": "동아일보",
       "title": "확고한 한미동맹과 힘에 의한 평화만이 도발을 억제한다",
       "summary": "선의에만 기댄 안보는 사상누각이라는 것이 국제정치의 교훈입니다. 확고한 연합방위태세와 3축 체계의 완성만이 실질적인 억지력을 담보합니다.",
@@ -511,23 +521,43 @@
     {
       "id": "op-3",
       "category": "법치와 헌법가치",
-      "author": "중앙일보 사설",
+      "author": "중앙일보 칼럼",
       "media": "중앙일보",
       "title": "사법부의 신속·공정한 재판이 곧 법치주의의 완성이다",
       "summary": "지연된 정의는 정의가 아닙니다. 정치적 외압에 흔들리지 않는 사법부의 독립과 재판 지연 해소야말로 자유민주주의 헌정 질서를 지키는 보루입니다.",
       "time": "어제 18:00 (저녁 엄선)",
       "read_time": "3분",
-      "link": "https://www.joongang.co.kr/opinion"
+      "link": "https://www.joongang.co.kr/opinion/editorial-column"
+    },
+    {
+      "id": "op-4",
+      "category": "기업과 미래",
+      "author": "매일경제 사설",
+      "media": "매일경제",
+      "title": "반도체·AI 첨단산업, 국가 생존 걸고 총력 지원해야",
+      "summary": "글로벌 패권 경쟁은 기업 간의 싸움을 넘어 국가 대항전이 되었습니다. 전력망 확충과 파격적인 R&D 세제 지원이 적기에 이루어져야 합니다.",
+      "time": "오늘 07:30 (아침 엄선)",
+      "read_time": "3분",
+      "link": "https://www.mk.co.kr/opinion/editorial/"
     }
   ],
   "poll": {
-    "question": "오늘의 핫이슈: 원자력 발전 비중 확대 및 차세대 SMR 수출 정책에 찬성하십니까?",
-    "description": "정부의 2038 미래 에너지 믹스 정책 및 체코/유럽 원전 수주 확대를 위한 민관 지원 강화 방안에 대한 귀하의 의견을 묻습니다.",
-    "agree_count": 3483,
-    "disagree_count": 413,
-    "total_count": 3896,
-    "agree_ratio": 89.4,
-    "disagree_ratio": 10.6
+    "week_key": "2026-W40",
+    "question": "금주의 핫이슈: 수도권 도심 주택공급 확대를 위한 재건축·재개발 안전진단 규제 완화에 찬성하십니까?",
+    "description": "노후 도심 주거지의 신속한 주택 공급과 민간 건설 경기 활성화를 위해 인허가 단축 및 재건축 초과이익 환수 완화 정책에 대한 의견을 묻습니다.",
+    "agree_count": 3500,
+    "disagree_count": 560,
+    "total_count": 4060,
+    "agree_ratio": 86.2,
+    "disagree_ratio": 13.8
+  },
+  "daily_idiom": {
+    "hanja": "居安思危",
+    "hangul": "거안사위",
+    "meaning": "평안할 때에도 늘 위태로움을 생각하며 미리 대비하고 경계한다.",
+    "origin": "《좌씨전(左氏傳)》 양공 11년에 수록된 고사로, 국가가 평온할 때 방비를 게을리하지 않아야 영구한 태평성대를 누릴 수 있다는 국방 안보의 지혜입니다.",
+    "modern": "급변하는 글로벌 신냉전과 북핵 안보 위기 속에서, 확고한 한미동맹과 자주국방력을 사전에 철저히 갖추어야 한다는 국가 안보의 철칙입니다.",
+    "date": "2026.10.02"
   },
   "weekly_report": {
     "period": "2026년 9월 4주차 (최근 7일간 데이터 종합)",
@@ -600,5 +630,5 @@
       "바른 팩트체크 코너에서 '전력 정산단가 통계' 기사가 높은 조회수와 신뢰를 받았습니다."
     ]
   },
-  "updated_at": "2026-10-02 08:21:25"
+  "updated_at": "2026-10-02 09:19:17"
 }

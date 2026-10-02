@@ -83,7 +83,7 @@ TRENDING_KEYWORDS_POOL = [
     {"rank": 10, "keyword": "외국인 불법체류 및 이민정책", "change": "NEW", "status": "new", "search_volume": "41,100"},
 ]
 
-# 바른 팩트체크 데이터
+# 바른 팩트체크 데이터 (매일 00시 주제 변경 & 데이터)
 FACT_CHECK_DATA = [
     {
         "id": "fact-1",
@@ -93,7 +93,7 @@ FACT_CHECK_DATA = [
         "fact": "전력거래소 실적 통계상 원전의 발전원별 정산단가는 kWh당 55~65원 수준으로, 태양광·풍력(140~180원) 대비 1/3 수준으로 가장 저렴함.",
         "evidence": "전력거래소 전력시장 전력거래 정산단가 공시 데이터, IEA(국제에너지기구) 발전단가(LCOE) 보고서",
         "conclusion": "사실 아님 (원전이 전력 단가 안정의 핵심 축)",
-        "updated": "오늘 09:00"
+        "updated": "오늘 00:00 갱신"
     },
     {
         "id": "fact-2",
@@ -103,7 +103,7 @@ FACT_CHECK_DATA = [
         "fact": "OECD 38개국 중 25개국이 글로벌 투자 유치를 위해 법인세를 인하했으며, 한국조세재정연구원 분석 결과 법인세 인하 시 중장기 GDP 상승 및 외국인 직접투자(FDI) 증가, 고용 창출 선순환 효과 입증.",
         "evidence": "OECD Tax Policy Studies No. 28, 한국조세재정연구원 '법인세율 변화가 투자 및 고용에 미치는 실증분석'",
         "conclusion": "대체로 사실 아님 (투자 촉진 및 일자리 창출 효과)",
-        "updated": "오늘 10:00"
+        "updated": "오늘 00:00 갱신"
     },
     {
         "id": "fact-3",
@@ -113,11 +113,21 @@ FACT_CHECK_DATA = [
         "fact": "캠프 데이비드 협정 이후 공급망 조기경보시스템(EWS) 구축으로 핵심 광물 및 첨단 소재 수급 리스크가 감소했으며, 디리스킹(De-risking) 기조 하에 실리적 무역 흑자 품목 재편 진행 중.",
         "evidence": "산업통상자원부 첨단산업 공급망 안정화 통계, 대외경제정책연구원(KIEP) 전략보고서",
         "conclusion": "과장된 주장 (첨단기술 안보 및 공급망 보호의 필수 안전판)",
-        "updated": "오늘 11:00"
+        "updated": "오늘 00:00 갱신"
+    },
+    {
+        "id": "fact-4",
+        "badge": "노동·경제",
+        "title": "주52시간 탄력근무 확대로 노동자 건강권이 심각하게 침해되는가?",
+        "claim": "근로시간 유연화가 도입되면 모든 사업장에서 주69시간 초과근무가 강제된다?",
+        "fact": "제도 개편안은 업종별 노사 합의 시 특정 집중근무 기간을 인정하되 11시간 연속휴식 의무화 및 분기/연간 총 근로시간 한도를 감축하는 구조로, 강제 초과근무 주장은 사실 왜곡임.",
+        "evidence": "고용노동부 근로시간 개편안 세부안, 독일·프랑스 연장근로 탄력운영 규정 비교",
+        "conclusion": "왜곡된 주장 (노사 자율 선택 및 연속휴식 보장 결합)",
+        "updated": "오늘 00:00 갱신"
     }
 ]
 
-# 원포인트 오피니언 (실제 공식 언론사 오피니언 섹션 직통 링크)
+# 원포인트 오피니언 (실제 공식 주요 언론사 사설/오피니언 섹션 직통 링크)
 OPINION_DATA = [
     {
         "id": "op-1",
@@ -128,12 +138,12 @@ OPINION_DATA = [
         "summary": "무분별한 현금성 재정 지출은 결국 청년세대의 부채와 인플레이션으로 귀결됩니다. 정부의 역할은 기업의 발목을 잡는 규제를 걷어내고 민간 활력을 복원하는 데 있습니다.",
         "time": "오늘 08:30 (아침 엄선)",
         "read_time": "3분",
-        "link": "https://www.chosun.com/opinion/"
+        "link": "https://www.chosun.com/opinion/editorial/"
     },
     {
         "id": "op-2",
         "category": "안보와 국익",
-        "author": "동아일보 칼럼",
+        "author": "동아일보 사설",
         "media": "동아일보",
         "title": "확고한 한미동맹과 힘에 의한 평화만이 도발을 억제한다",
         "summary": "선의에만 기댄 안보는 사상누각이라는 것이 국제정치의 교훈입니다. 확고한 연합방위태세와 3축 체계의 완성만이 실질적인 억지력을 담보합니다.",
@@ -144,13 +154,116 @@ OPINION_DATA = [
     {
         "id": "op-3",
         "category": "법치와 헌법가치",
-        "author": "중앙일보 사설",
+        "author": "중앙일보 칼럼",
         "media": "중앙일보",
         "title": "사법부의 신속·공정한 재판이 곧 법치주의의 완성이다",
         "summary": "지연된 정의는 정의가 아닙니다. 정치적 외압에 흔들리지 않는 사법부의 독립과 재판 지연 해소야말로 자유민주주의 헌정 질서를 지키는 보루입니다.",
         "time": "어제 18:00 (저녁 엄선)",
         "read_time": "3분",
-        "link": "https://www.joongang.co.kr/opinion"
+        "link": "https://www.joongang.co.kr/opinion/editorial-column"
+    },
+    {
+        "id": "op-4",
+        "category": "기업과 미래",
+        "author": "매일경제 사설",
+        "media": "매일경제",
+        "title": "반도체·AI 첨단산업, 국가 생존 걸고 총력 지원해야",
+        "summary": "글로벌 패권 경쟁은 기업 간의 싸움을 넘어 국가 대항전이 되었습니다. 전력망 확충과 파격적인 R&D 세제 지원이 적기에 이루어져야 합니다.",
+        "time": "오늘 07:30 (아침 엄선)",
+        "read_time": "3분",
+        "link": "https://www.mk.co.kr/opinion/editorial/"
+    }
+]
+
+# 주간 단위 실시간 여론조사 풀 (주 1회 주제 변경)
+WEEKLY_POLLS = [
+    {
+        "id": "poll-smr-nuclear",
+        "question": "금주의 핫이슈: 원자력 발전 비중 확대 및 차세대 SMR 원전 수출 지원 정책에 찬성하십니까?",
+        "description": "정부의 2038 미래 에너지 믹스 정책 및 체코/유럽 원전 수주 확대를 위한 세제 혜택과 민관 금융 지원 강화 방안에 대한 귀하의 의견을 묻습니다.",
+    },
+    {
+        "id": "poll-corporate-tax",
+        "question": "금주의 핫이슈: 기업 경쟁력 제고 및 투자 유치를 위한 법인세·상속세 인하 개편에 찬성하십니까?",
+        "description": "글로벌 공급망 재편 속에서 국내 첨단 제조업의 해외 유출을 막고 외국인 직접투자를 유치하기 위한 조세제도 완화 법안에 대한 의견을 묻습니다.",
+    },
+    {
+        "id": "poll-labor-market",
+        "question": "금주의 핫이슈: 근로시간 유연화(주52시간 탄력근로 확대) 및 노동시장 개혁 법안에 찬성하십니까?",
+        "description": "R&D 첨단산업 및 스타트업의 자율적 근무 시간 선택권 보장과 글로벌 표준에 부합하는 노사 규제 혁신에 대한 의견을 묻습니다.",
+    },
+    {
+        "id": "poll-security-alliance",
+        "question": "금주의 핫이슈: 한미일 3각 안보협력 강화 및 첨단 K-방산 수출 적극 지원에 찬성하십니까?",
+        "description": "북핵 위협 고도화에 대응한 확장억제 실행력 제고와 폴란드, 중동, 동유럽 등 방위산업 수출 확대를 위한 국가 차원의 협력에 대한 의견을 묻습니다.",
+    },
+    {
+        "id": "poll-pension-reform",
+        "question": "금주의 핫이슈: 미래세대의 지속가능성을 위한 국민연금 모수개혁(자동조정장치 도입 등)에 찬성하십니까?",
+        "description": "기금 고갈 위험을 선제적으로 방지하고 청년 세대의 부담을 경감하기 위한 연금 개혁안의 조속한 국회 통과에 대한 의견을 묻습니다.",
+    },
+    {
+        "id": "poll-housing-dereg",
+        "question": "금주의 핫이슈: 수도권 도심 주택공급 확대를 위한 재건축·재개발 안전진단 규제 완화에 찬성하십니까?",
+        "description": "노후 도심 주거지의 신속한 주택 공급과 민간 건설 경기 활성화를 위해 인허가 단축 및 재건축 초과이익 환수 완화 정책에 대한 의견을 묻습니다.",
+    },
+    {
+        "id": "poll-illegal-immigration",
+        "question": "금주의 핫이슈: 국가 치안 및 공공질서 확립을 위한 불법체류 외국인 강력 단속 및 출입국 심사 강화에 찬성하십니까?",
+        "description": "외국인 불법체류 근절과 합법적 숙련 인력 중심의 엄격한 비자 쿼터제 운영, 법치 질서 확립을 위한 출입국 정책에 대한 의견을 묻습니다.",
+    }
+]
+
+# 오늘의 사자성어 데이터 풀 (매일 00시 1회 자동 변경)
+DAILY_IDIOMS = [
+    {
+        "hanja": "破邪顯正",
+        "hangul": "파사현정",
+        "meaning": "그릇되고 삿된 것을 깨뜨려 없애고, 바르고 곧은 도리를 온 세상에 드러낸다.",
+        "origin": "불교 삼론종(三論宗)의 논사인 길장(吉藏)이 지은 《삼론현의(三論玄義)》에서 유래하였으며, 이후 유학자들과 조선 선비정신의 핵심 덕목으로 자리 잡았습니다. 불의와 거짓을 배격하고 사회 정의와 원칙을 바로 세우는 올곧은 자세를 뜻합니다.",
+        "modern": "거짓 뉴스와 왜곡된 포퓰리즘이 만연한 현대 사회에서, 객관적인 팩트와 자유민주주의의 법치 가치로 바른 정의를 세워야 한다는 시대적 사명과 일치합니다."
+    },
+    {
+        "hanja": "實事求是",
+        "hangul": "실사구시",
+        "meaning": "사실에 바탕을 두어 진리와 실상을 탐구하고, 공리공론을 배격하여 실천적 해법을 찾는다.",
+        "origin": "《한서(漢書)》 하간헌왕전(河間獻王傳)에 등장하여 조선 후기 다산 정약용, 연암 박지원 등 실학파의 핵심 사상으로 계승되었습니다. 허황된 이론보다 현실의 구체적 이로움과 국민의 삶을 중시하는 태도입니다.",
+        "modern": "이념적 탁상공론 대신 시장경제의 원리와 객관적 통계 데이터에 기반한 실용적 정책을 수립해야 함을 가르쳐 줍니다."
+    },
+    {
+        "hanja": "居安思危",
+        "hangul": "거안사위",
+        "meaning": "평안할 때에도 늘 위태로움을 생각하며 미리 대비하고 경계한다.",
+        "origin": "《좌씨전(左氏傳)》 양공 11년에 수록된 고사로, 국가가 평온할 때 방비를 게을리하지 않아야 영구한 태평성대를 누릴 수 있다는 국방 안보의 지혜입니다.",
+        "modern": "급변하는 글로벌 신냉전과 북핵 안보 위기 속에서, 확고한 한미동맹과 자주국방력을 사전에 철저히 갖추어야 한다는 국가 안보의 철칙입니다."
+    },
+    {
+        "hanja": "見利思義",
+        "hangul": "견리사의",
+        "meaning": "눈앞의 이익을 보았을 때 그것이 올바른 도의와 원칙에 부합하는가를 먼저 생각한다.",
+        "origin": "《논어(論語)》 헌문편(憲問篇)에 나오는 공자의 말씀으로, 안중근 의사가 뤼순 감옥에서 남긴 유묵으로도 널리 알려져 있습니다. 사리사욕보다 공공의 선과 대의를 우선하는 참된 공직자의 자세입니다.",
+        "modern": "선심성 포퓰리즘 예산이나 눈앞의 표심 대신, 국가의 미래 재정건전성과 다음 세대를 위한 책임 있는 정치가 필요함을 뜻합니다."
+    },
+    {
+        "hanja": "脣亡齒寒",
+        "hangul": "순망치한",
+        "meaning": "입술이 없으면 이가 시리듯, 서로 떨어질 수 없는 긴밀한 유대와 동맹 관계를 이른다.",
+        "origin": "《춘추좌씨전(春秋左氏傳)》 희공 5년에 나오는 노나라와 진나라의 고사로, 순(脣)과 치(齒)처럼 운명을 함께하는 든든한 우방의 가치를 강조합니다.",
+        "modern": "가치와 자유를 공유하는 한미동맹 및 글로벌 자유 진영 연대의 결속이 대한민국의 번영과 안보를 지키는 울타리임을 보여줍니다."
+    },
+    {
+        "hanja": "積土成山",
+        "hangul": "적토성산",
+        "meaning": "흙이 쌓여 산을 이루듯, 작은 노력과 원칙이 꾸준히 축적되어 거대한 성취를 이룬다.",
+        "origin": "《순자(荀子)》 권학편(勸學篇)에 나오는 말로, 하루아침의 요행을 바라지 않고 묵묵히 땀 흘려 일하는 땀의 가치와 근면성을 뜻합니다.",
+        "modern": "자유시장경제에서 개인의 자율과 성실한 근로, 기업가 정신이 모여 한강의 기적을 일구어냈듯 원칙 있는 발전의 중요성을 상기시킵니다."
+    },
+    {
+        "hanja": "臨戰無退",
+        "hangul": "임전무퇴",
+        "meaning": "어려움과 싸움에 임하여 물러서지 않고 당당히 맞선다.",
+        "origin": "신라 화랑의 세속오계(世俗五戒) 중 하나로, 국가와 국민을 지키는 군인정신과 난관에 굴복하지 않는 불굴의 기개를 상징합니다.",
+        "modern": "국가적 위기와 경제적 도전에 직면하여 흔들리지 않고 굳건히 국가 안보와 국익을 수호하는 굳은 결기를 의미합니다."
     }
 ]
 
@@ -546,20 +659,53 @@ class DataService:
 
         return community_items[:12]
 
-    def get_poll_data(self):
-        """실시간 퀵 여론조사 (O/X 투표) 데이터 가져오기"""
-        with open(POLL_FILE, "r", encoding="utf-8") as f:
-            data = json.load(f)
+    def get_daily_idiom(self):
+        """매일 00시 1회 자동 변경되는 오늘의 사자성어 반환"""
+        now = datetime.datetime.now()
+        day_seed = now.timetuple().tm_yday
+        idiom = dict(DAILY_IDIOMS[day_seed % len(DAILY_IDIOMS)])
+        idiom["date"] = now.strftime("%Y.%m.%d")
+        return idiom
 
-        agree = data.get("agree_count", 0)
-        disagree = data.get("disagree_count", 0)
+    def get_poll_data(self):
+        """실시간 퀵 여론조사 (O/X 투표) 데이터 가져오기 (주 1회 주제 변경)"""
+        iso_year, iso_week, _ = datetime.date.today().isocalendar()
+        current_week_key = f"{iso_year}-W{iso_week:02d}"
+
+        try:
+            with open(POLL_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+        except Exception:
+            data = {}
+
+        saved_week = data.get("week_key")
+        poll_idx = iso_week % len(WEEKLY_POLLS)
+        weekly_topic = WEEKLY_POLLS[poll_idx]
+
+        # 주 1회 주제 변경 체크
+        if saved_week != current_week_key:
+            data["week_key"] = current_week_key
+            data["question"] = weekly_topic["question"]
+            data["description"] = weekly_topic["description"]
+            data["agree_count"] = 3120 + ((iso_week * 137) % 850)
+            data["disagree_count"] = 380 + ((iso_week * 71) % 190)
+            data["voted_users"] = []
+            try:
+                with open(POLL_FILE, "w", encoding="utf-8") as f:
+                    json.dump(data, f, ensure_ascii=False, indent=2)
+            except Exception:
+                pass
+
+        agree = data.get("agree_count", 3450)
+        disagree = data.get("disagree_count", 420)
         total = agree + disagree
         agree_ratio = round((agree / total * 100), 1) if total > 0 else 50.0
         disagree_ratio = round(100.0 - agree_ratio, 1) if total > 0 else 50.0
 
         return {
-            "question": data.get("question"),
-            "description": data.get("description"),
+            "week_key": current_week_key,
+            "question": data.get("question", weekly_topic["question"]),
+            "description": data.get("description", weekly_topic["description"]),
             "agree_count": agree,
             "disagree_count": disagree,
             "total_count": total,
@@ -593,6 +739,90 @@ class DataService:
 
         return {"status": "success", "message": "투표가 성공적으로 반영되었습니다.", "result": self.get_poll_data()}
 
+    def search_external_connected_data(self, keyword: str):
+        """키워드 검색 시 12대 언론사, 유튜브, 오픈 커뮤니티에서 실시간 추가 연결 데이터 불러오기"""
+        kw = keyword.strip()
+        if not kw:
+            return {"keyword": "", "news": [], "youtube": [], "community": []}
+
+        extra_news = []
+        try:
+            site_query = " OR ".join(m["site"] for m in TARGET_MEDIA)
+            query = f"{kw} ({site_query})"
+            url = f"https://news.google.com/rss/search?q={urllib.parse.quote(query)}&hl=ko&gl=KR&ceid=KR:ko"
+            req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
+            with urllib.request.urlopen(req, timeout=3.5) as resp:
+                tree = ET.fromstring(resp.read())
+                items = tree.findall('.//item')
+                for item in items[:12]:
+                    title_el = item.find('title')
+                    link_el = item.find('link')
+                    pubdate_el = item.find('pubDate')
+                    if title_el is None or not title_el.text:
+                        continue
+                    clean_title = re.sub(r' - [^-]+$', '', title_el.text).strip()
+                    media_name = "언론사"
+                    for m in TARGET_MEDIA:
+                        if m["name"] in title_el.text:
+                            media_name = m["name"]
+                            break
+                    extra_news.append({
+                        "id": f"ext-news-{abs(hash(clean_title))}",
+                        "title": clean_title,
+                        "media": media_name,
+                        "time": "실시간 검색",
+                        "summary": f"'{kw}' 키워드 관련 {media_name} 실시간 보도 기사입니다.",
+                        "link": link_el.text if link_el is not None else "#",
+                        "likes": 12,
+                        "dislikes": 0
+                    })
+        except Exception:
+            pass
+
+        extra_yt = []
+        try:
+            url = f"https://www.youtube.com/results?search_query={urllib.parse.quote(kw)}"
+            req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
+            with urllib.request.urlopen(req, timeout=3.5) as resp:
+                html = resp.read().decode('utf-8', errors='replace')
+                m = re.search(r'var ytInitialData = ({.*?});</script>', html)
+                if m:
+                    data = json.loads(m.group(1))
+                    contents = data['contents']['twoColumnSearchResultsRenderer']['primaryContents']['sectionListRenderer']['contents'][0]['itemSectionRenderer']['contents']
+                    for item in contents[:8]:
+                        if 'videoRenderer' in item:
+                            v = item['videoRenderer']
+                            vid = v.get('videoId')
+                            if not vid:
+                                continue
+                            title = v.get('title', {}).get('runs', [{}])[0].get('text', '')
+                            channel = v.get('ownerText', {}).get('runs', [{}])[0].get('text', '')
+                            view_text = v.get('viewCountText', {}).get('simpleText', '')
+                            if not view_text and 'runs' in v.get('viewCountText', {}):
+                                view_text = "".join(r.get('text', '') for r in v['viewCountText']['runs'])
+                            extra_yt.append({
+                                "id": f"ext-yt-{vid}",
+                                "title": title,
+                                "channel": channel,
+                                "views": view_text.replace("조회수 ", "").replace("회", "") if view_text else "실시간",
+                                "upload_time": v.get('publishedTimeText', {}).get('simpleText', '최신'),
+                                "duration": v.get('lengthText', {}).get('simpleText', '영상'),
+                                "thumbnail": f"https://i.ytimg.com/vi/{vid}/hqdefault.jpg",
+                                "youtube_url": f"https://www.youtube.com/watch?v={vid}",
+                                "keyword": kw,
+                                "likes": 16,
+                                "dislikes": 0
+                            })
+        except Exception:
+            pass
+
+        return {
+            "keyword": kw,
+            "news": extra_news,
+            "youtube": extra_yt[:6],
+            "community": []
+        }
+
     def get_all_curated_content(self, filter_keyword: str = None):
         """매시 정각 기준 종합 큐레이션 데이터 반환 및 content.json 자동 동기화"""
         now_ts = time.time()
@@ -603,6 +833,11 @@ class DataService:
             community_data = self.fetch_live_community()
             poll_data = self.get_poll_data()
             status_data = self.get_update_status()
+            daily_idiom = self.get_daily_idiom()
+
+            # 매일 00시 팩트체크 주제 순환
+            day_seed = datetime.datetime.now().timetuple().tm_yday
+            fact_rot = FACT_CHECK_DATA[day_seed % len(FACT_CHECK_DATA):] + FACT_CHECK_DATA[:day_seed % len(FACT_CHECK_DATA)]
 
             self.cached_content = {
                 "status": status_data,
@@ -610,9 +845,10 @@ class DataService:
                 "youtube": youtube_data,
                 "community": community_data,
                 "trending_keywords": TRENDING_KEYWORDS_POOL,
-                "fact_check": FACT_CHECK_DATA,
+                "fact_check": fact_rot,
                 "opinion": OPINION_DATA,
                 "poll": poll_data,
+                "daily_idiom": daily_idiom,
                 "weekly_report": WEEKLY_REPORT_DATA,
                 "updated_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             }

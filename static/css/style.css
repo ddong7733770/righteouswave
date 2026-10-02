@@ -127,10 +127,46 @@ body.theme-dark {
   --shadow-glow: 0 14px 36px rgba(142, 112, 255, 0.28);
 }
 
-/* 글자 크기 가변 모드 (중장년층 가독성 지원) */
-body.font-normal { --font-base-size: 15px; }
-body.font-large { --font-base-size: 17px; }
-body.font-xlarge { --font-base-size: 19px; }
+/* 글자 크기 가변 모드 (+는 1.5배, ++는 2배 완벽 지원) */
+body.font-normal {
+  --font-base-size: 15px;
+  --font-scale: 1;
+}
+
+body.font-large {
+  --font-base-size: 22.5px; /* 1.5배 */
+  --font-scale: 1.5;
+}
+
+body.font-xlarge {
+  --font-base-size: 30px; /* 2.0배 */
+  --font-scale: 2.0;
+}
+
+/* 글자 크기 확대 시 주요 텍스트 1.5배, 2배 비례 확대 */
+body.font-large .column-title,
+body.font-large .headline-title,
+body.font-large .straight-news-title,
+body.font-large .yt-card-title,
+body.font-large .comm-title,
+body.font-large .poll-question,
+body.font-large .factcheck-title,
+body.font-large .opinion-title,
+body.font-large .welcome-heading {
+  font-size: 1.5em !important;
+}
+
+body.font-xlarge .column-title,
+body.font-xlarge .headline-title,
+body.font-xlarge .straight-news-title,
+body.font-xlarge .yt-card-title,
+body.font-xlarge .comm-title,
+body.font-xlarge .poll-question,
+body.font-xlarge .factcheck-title,
+body.font-xlarge .opinion-title,
+body.font-xlarge .welcome-heading {
+  font-size: 2.0em !important;
+}
 
 * {
   box-sizing: border-box;
@@ -169,39 +205,115 @@ button {
 }
 
 /* ========================================================
-   [1] 최상단 롤링 티커 바 (Genie Style)
+   [2] 최상단 고정 슬림 헤더 (바 두께 얇게, 제목 옆 최근/갱신시간/지금갱신 배치)
    ======================================================== */
-.top-ticker-bar {
-  background-color: var(--bg-elevated);
-  color: var(--text-secondary);
-  font-size: 0.82rem;
+.sticky-top-header {
+  background-color: rgba(255, 255, 255, 0.96);
   border-bottom: 1px solid var(--border-default);
-  padding: 7px 0;
+  padding: 8px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 1px 8px rgba(29, 20, 54, 0.04);
 }
 
-.ticker-container {
+body.theme-dark .sticky-top-header {
+  background-color: rgba(21, 17, 37, 0.96);
+  border-color: var(--border-default);
+}
+
+.header-inner-slim {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
-.ticker-label {
+.header-left-cluster {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+/* 콤팩트 브랜드 로고 */
+.brand-logo-compact {
   display: flex;
   align-items: center;
   gap: 8px;
+  text-decoration: none;
+}
+
+.logo-symbol-compact {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--color-secondary-500) 0%, var(--color-primary-500) 100%);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  font-weight: 900;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(54, 23, 206, 0.25);
+  letter-spacing: -0.04em;
+}
+
+.logo-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.logo-title-compact {
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
   color: var(--color-primary-500);
+  line-height: 1;
+  margin: 0;
+}
+
+body.theme-dark .logo-title-compact {
+  color: #DDD2FF;
+}
+
+.logo-badge-live {
+  font-size: 0.68rem;
   font-weight: 800;
-  white-space: nowrap;
+  color: var(--color-primary-600);
+  background: var(--color-primary-50);
+  border: 1px solid var(--color-primary-100);
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
 }
 
-body.theme-dark .ticker-label {
-  color: #A78BFA;
+body.theme-dark .logo-badge-live {
+  color: #DDD2FF;
+  background: #251B47;
+  border-color: #3B2B73;
 }
 
-.pulse-dot {
-  width: 7px;
-  height: 7px;
+/* 제목 바로 옆 인라인 업데이트 & 갱신 바 */
+.header-timer-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-default);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.timer-live-dot {
+  width: 6px;
+  height: 6px;
   background-color: var(--color-accent-pink);
   border-radius: 50%;
   display: inline-block;
@@ -210,208 +322,67 @@ body.theme-dark .ticker-label {
 
 @keyframes pulseAnim {
   0% { transform: scale(0.9); opacity: 0.8; box-shadow: 0 0 0 0 rgba(255, 77, 141, 0.7); }
-  70% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 0 6px rgba(255, 77, 141, 0); }
+  70% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 0 5px rgba(255, 77, 141, 0); }
   100% { transform: scale(0.9); opacity: 0.8; }
 }
 
-.ticker-content {
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: var(--text-secondary);
-  font-weight: 500;
-}
-
-.ticker-date {
-  color: var(--text-tertiary);
-  font-size: 0.78rem;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-/* ========================================================
-   [2] 메인 헤더 (Genie TopBar & Brand Logo)
-   ======================================================== */
-.main-header {
-  background-color: color-mix(in srgb, var(--bg-elevated) 92%, transparent);
-  border-bottom: 1px solid var(--border-default);
-  padding: 18px 0;
-  position: relative;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  z-index: 20;
-}
-
-.header-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-/* 브랜드 로고 (지니 시그니처 핑크 닷) */
-.header-brand .brand-logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.logo-symbol {
-  width: 44px;
-  height: 44px;
-  background: linear-gradient(135deg, var(--color-secondary-500) 0%, var(--color-primary-500) 100%);
-  color: #FFFFFF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.4rem;
-  font-weight: 900;
-  border-radius: var(--radius-md);
-  box-shadow: 0 6px 16px rgba(54, 23, 206, 0.25);
-  letter-spacing: -0.04em;
-}
-
-.logo-symbol.small {
-  width: 28px;
-  height: 28px;
-  font-size: 0.95rem;
-  border-radius: 8px;
-}
-
-.logo-text-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.logo-title {
-  font-size: 1.75rem;
-  font-weight: 900;
-  letter-spacing: -0.05em;
-  color: var(--color-primary-500);
-  line-height: 1.1;
-  position: relative;
-}
-
-body.theme-dark .logo-title {
-  color: #DDD2FF;
-}
-
-/* 지니 시그니처 핑크 닷 */
-.logo-title::after {
-  content: "";
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  margin-left: 4px;
-  border-radius: 50%;
-  background: var(--color-accent-pink);
-  vertical-align: 8px;
-  box-shadow: 0 0 8px rgba(255, 77, 141, 0.6);
-}
-
-.logo-slogan {
-  font-size: 0.76rem;
-  color: var(--text-tertiary);
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  margin-top: 3px;
-}
-
-/* 타이머 박스 (지니 라벤더 알약형) */
-.header-timer-box {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  background: var(--bg-subtle);
-  padding: 8px 18px;
-  border-radius: var(--radius-full);
-  border: 1px solid var(--border-default);
-  box-shadow: var(--shadow-sm);
-}
-
-.timer-badge-wrap {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.timer-badge {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-  font-weight: 600;
-}
-
-.timer-badge strong {
+.timer-label-item strong {
   color: var(--color-primary-500);
   font-weight: 800;
 }
 
-body.theme-dark .timer-badge strong {
+body.theme-dark .timer-label-item strong {
   color: #A78BFA;
 }
 
-.timer-countdown {
-  font-size: 0.88rem;
-  color: var(--text-primary);
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 4px;
+.timer-divider {
+  color: var(--border-strong);
+  font-size: 0.72rem;
 }
 
-.countdown-digits {
+.countdown-digits-compact {
   font-family: 'Pretendard', monospace;
   color: var(--color-primary-500);
   background: var(--color-primary-50);
-  padding: 3px 9px;
+  border: 1px solid var(--color-primary-100);
+  padding: 1px 6px;
   border-radius: var(--radius-full);
   font-weight: 850;
   letter-spacing: 0.2px;
-  border: 1px solid var(--color-primary-100);
 }
 
-body.theme-dark .countdown-digits {
+body.theme-dark .countdown-digits-compact {
   color: #DDD2FF;
   background: #201544;
   border-color: #2C1D5E;
 }
 
-/* 지금 갱신 버튼 (지니 퍼플 그라데이션) */
-.btn-refresh {
-  display: flex;
+.btn-refresh-inline {
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   background: linear-gradient(135deg, var(--color-secondary-500), var(--color-primary-500));
   color: #FFFFFF;
-  padding: 8px 16px;
+  border: none;
+  padding: 3px 9px;
   border-radius: var(--radius-full);
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 750;
-  letter-spacing: -0.01em;
-  box-shadow: 0 4px 14px rgba(54, 23, 206, 0.25);
-  transition: transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-base) var(--ease-out);
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(54, 23, 206, 0.22);
+  transition: transform var(--duration-fast), box-shadow var(--duration-fast);
 }
 
-.btn-refresh:hover {
+.btn-refresh-inline:hover {
   transform: translateY(-1px);
-  box-shadow: 0 8px 22px rgba(54, 23, 206, 0.35);
+  box-shadow: 0 4px 10px rgba(54, 23, 206, 0.32);
 }
 
-.btn-refresh:active {
-  transform: translateY(0) scale(0.98);
+.btn-refresh-inline:active {
+  transform: translateY(0) scale(0.97);
 }
 
-.refresh-icon {
-  font-size: 1rem;
-  transition: transform 0.4s ease;
-}
-
-.btn-refresh.spinning .refresh-icon {
+.btn-refresh-inline.spinning .refresh-icon {
   animation: spin 0.8s linear infinite;
 }
 
@@ -420,94 +391,94 @@ body.theme-dark .countdown-digits {
   to { transform: rotate(360deg); }
 }
 
-/* 유틸리티 버튼들 (지니 알약형 스타일) */
-.header-utils {
+/* 우측 클러스터 */
+.header-right-cluster {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.btn-util {
-  display: flex;
+/* 사자성어 헤더 칩 */
+.header-idiom-chip {
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  border-radius: var(--radius-full);
-  background-color: var(--bg-elevated);
-  border: 1px solid var(--border-default);
-  color: var(--text-secondary);
-  font-size: 0.84rem;
-  font-weight: 700;
-  box-shadow: var(--shadow-sm);
-  transition: all var(--duration-fast) var(--ease-out);
-}
-
-.btn-util:hover {
-  border-color: var(--color-primary-300);
-  color: var(--color-primary-500);
-  transform: translateY(-1px);
-}
-
-.btn-mobile {
+  gap: 5px;
   background: var(--color-primary-50);
-  border-color: var(--color-primary-100);
-  color: var(--color-primary-500);
-}
-
-body.theme-dark .btn-mobile {
-  background: #201544;
-  border-color: #2C1D5E;
-  color: #DDD2FF;
-}
-
-.btn-report {
-  background-color: #FDF2F8;
-  border-color: #FBCFE8;
-  color: #BE185D;
-}
-
-body.theme-dark .btn-report {
-  background-color: #381226;
-  border-color: #831843;
-  color: #F472B6;
-}
-
-.font-resizer {
-  display: flex;
-  background-color: var(--bg-elevated);
-  border: 1px solid var(--border-default);
+  border: 1px solid var(--color-primary-100);
+  color: var(--color-primary-700);
+  padding: 4px 10px;
   border-radius: var(--radius-full);
-  padding: 2px;
-  box-shadow: var(--shadow-sm);
-}
-
-.font-btn {
-  padding: 5px 10px;
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   font-weight: 750;
-  color: var(--text-tertiary);
-  border-radius: var(--radius-full);
+  text-decoration: none;
   transition: all var(--duration-fast);
 }
 
-.font-btn:hover {
+.header-idiom-chip:hover {
+  background: var(--color-primary-100);
+  color: var(--color-primary-900);
+  transform: translateY(-1px);
+}
+
+body.theme-dark .header-idiom-chip {
+  background: #251B47;
+  border-color: #3B2B73;
+  color: #DDD2FF;
+}
+
+.idiom-chip-arrow {
+  font-size: 0.7rem;
+  opacity: 0.75;
+}
+
+/* 작게 수정된 글자 크기 조정 버튼 */
+.font-resizer-compact {
+  display: flex;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  padding: 1px;
+}
+
+.font-btn-compact {
+  padding: 2px 7px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--text-tertiary);
+  border-radius: var(--radius-full);
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.font-btn-compact:hover {
   color: var(--color-primary-500);
 }
 
-.font-btn.active {
+.font-btn-compact.active {
   background: var(--color-primary-500);
   color: #FFFFFF;
-  box-shadow: 0 2px 8px rgba(54, 23, 206, 0.25);
 }
 
-.theme-toggle {
-  width: 38px;
-  height: 38px;
+/* 작게 수정된 테마 토글 버튼 */
+.theme-toggle-compact {
+  width: 28px;
+  height: 28px;
   padding: 0;
   border-radius: var(--radius-full);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-default);
   display: grid;
   place-items: center;
-  font-size: 1rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.theme-toggle-compact:hover {
+  background: var(--bg-elevated);
+  border-color: var(--color-primary-300);
 }
 
 /* ========================================================
@@ -1839,19 +1810,26 @@ body.theme-dark .block-fact {
   font-size: 0.76rem;
 }
 
+/* 바른 팩트체크 결론 (요구사항 16: 결론 폰트 1.5배 더 크게 적용) */
 .fact-conclusion-badge {
   align-self: flex-start;
-  font-size: 0.78rem;
-  font-weight: 800;
-  color: var(--color-primary-700);
-  background-color: var(--color-primary-50);
-  padding: 4px 12px;
-  border-radius: var(--radius-full);
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1.18rem !important; /* 기존 0.78rem의 1.5배 이상 확대 */
+  font-weight: 900;
+  color: #FFFFFF;
+  background: linear-gradient(135deg, var(--color-secondary-500), var(--color-primary-500));
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  margin-top: 10px;
+  box-shadow: 0 4px 14px rgba(54, 23, 206, 0.22);
+  letter-spacing: -0.02em;
 }
 
 body.theme-dark .fact-conclusion-badge {
-  color: #DDD2FF;
-  background-color: #201544;
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #6D28D9, #4C1D95);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
 }
 
 /* ========================================================
@@ -2160,12 +2138,16 @@ body.theme-dark .stat-num {
 /* ========================================================
    [14] 푸터
    ======================================================== */
+/* ========================================================
+   [14] 푸터 (요구사항 18: 폰트 70% 사이즈 적용)
+   ======================================================== */
 .main-footer {
   background-color: var(--bg-elevated);
   color: var(--text-tertiary);
-  padding: 44px 0 34px;
-  font-size: 0.82rem;
+  padding: 30px 0 85px; /* 하단 플로팅 바 여백 확보 */
+  font-size: 0.58rem !important; /* 기존 0.82rem의 70% */
   border-top: 1px solid var(--border-default);
+  line-height: 1.55;
 }
 
 .footer-top {
@@ -2173,36 +2155,37 @@ body.theme-dark .stat-num {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 20px;
-  margin-bottom: 22px;
+  gap: 16px;
+  margin-bottom: 16px;
 }
 
 .footer-brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .footer-brand strong {
-  font-size: 1.1rem;
+  font-size: 0.78rem;
   color: var(--text-primary);
   font-weight: 850;
 }
 
 .footer-tagline {
   color: var(--text-tertiary);
-  font-size: 0.8rem;
-  margin-left: 6px;
+  font-size: 0.56rem;
+  margin-left: 4px;
   font-weight: 500;
 }
 
 .footer-links {
   display: flex;
-  gap: 18px;
+  gap: 14px;
 }
 
 .footer-links a {
   color: var(--text-secondary);
+  font-size: 0.6rem;
   font-weight: 600;
   transition: color var(--duration-fast);
 }
@@ -2214,17 +2197,19 @@ body.theme-dark .stat-num {
 .footer-divider {
   height: 1px;
   background-color: var(--border-default);
-  margin-bottom: 20px;
+  margin-bottom: 14px;
 }
 
 .footer-disclaimer p {
-  line-height: 1.65;
-  margin-bottom: 8px;
+  line-height: 1.55;
+  margin-bottom: 6px;
+  font-size: 0.56rem;
 }
 
 .footer-disclaimer .copy {
   color: var(--text-tertiary);
-  margin-top: 14px;
+  margin-top: 10px;
+  font-size: 0.54rem;
   font-weight: 500;
 }
 
@@ -2299,4 +2284,458 @@ body.theme-dark .stat-num {
   .poll-buttons {
     grid-template-columns: 1fr;
   }
+}
+
+/* ========================================================
+   [16] 네비게이션 스크롤 오프셋 (요구사항 7: 타이틀이 잘 보이도록 상단 여백)
+   ======================================================== */
+#welcome-section,
+#section-news,
+#section-youtube,
+#section-community,
+#section-factcheck,
+#section-opinion,
+#section-poll,
+#section-idiom,
+#section-report {
+  scroll-margin-top: 110px;
+}
+
+/* ========================================================
+   [17] 좋아요 / 싫어요 리액션 바 (요구사항 20: 싫어요 30개 시 즉시 제외)
+   ======================================================== */
+.item-reaction-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.btn-react {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+  font-size: 0.74rem;
+  font-weight: 750;
+  border: 1px solid var(--border-default);
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.btn-react:hover {
+  transform: translateY(-1px);
+  border-color: var(--border-strong);
+}
+
+.btn-react.btn-like:hover,
+.btn-react.btn-like.voted {
+  background: var(--color-primary-50);
+  border-color: var(--color-primary-300);
+  color: var(--color-primary-600);
+}
+
+.btn-react.btn-dislike:hover,
+.btn-react.btn-dislike.voted {
+  background: #FDF2F4;
+  border-color: #FECDD3;
+  color: #E11D48;
+}
+
+.vote-cnt {
+  font-weight: 800;
+  font-family: 'Pretendard', monospace;
+  font-size: 0.72rem;
+}
+
+/* 헤드라인 카드 액션 바 */
+.card-action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* ========================================================
+   [18] 인앱 브라우저 모달 (요구사항 11: 외부 페이지 이탈 방지)
+   ======================================================== */
+.inapp-browser-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(13, 11, 18, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+}
+
+.inapp-browser-dialog {
+  width: 100%;
+  max-width: 1100px;
+  height: 90vh;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-default);
+}
+
+.inapp-browser-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+  background: var(--bg-subtle);
+  border-bottom: 1px solid var(--border-default);
+}
+
+.browser-controls-left,
+.browser-controls-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.browser-btn {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-full);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  color: var(--text-primary);
+  font-weight: 800;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.browser-btn:hover {
+  background: var(--color-primary-50);
+  color: var(--color-primary-600);
+  border-color: var(--color-primary-200);
+}
+
+.browser-btn.btn-open-external {
+  width: auto;
+  padding: 0 12px;
+  font-size: 0.78rem;
+  text-decoration: none;
+  background: var(--color-primary-50);
+  color: var(--color-primary-600);
+  border-color: var(--color-primary-100);
+}
+
+.browser-btn.btn-open-external:hover {
+  background: var(--color-primary-500);
+  color: #FFFFFF;
+}
+
+.browser-address-bar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  padding: 5px 14px;
+  overflow: hidden;
+}
+
+.browser-title-text {
+  font-size: 0.82rem;
+  font-weight: 750;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 45%;
+}
+
+.browser-url-text {
+  font-size: 0.72rem;
+  color: var(--text-tertiary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inapp-browser-notice-bar {
+  padding: 6px 16px;
+  background: #FEF3C7;
+  border-bottom: 1px solid #FDE68A;
+  color: #92400E;
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+body.theme-dark .inapp-browser-notice-bar {
+  background: #3B2A0F;
+  border-color: #5C3D12;
+  color: #FCD34D;
+}
+
+.inapp-browser-body {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  background: #FFFFFF;
+}
+
+.inapp-browser-body iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ========================================================
+   [19] 하단 고정 플로팅 바 (요구사항 21: 뒤로가기/앞으로가기/공유 복사)
+   ======================================================== */
+.bottom-floating-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1050;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--border-default);
+  box-shadow: 0 -4px 20px rgba(29, 20, 54, 0.08);
+  padding: 8px 0 calc(8px + env(safe-area-inset-bottom, 0px));
+}
+
+body.theme-dark .bottom-floating-bar {
+  background: rgba(21, 17, 37, 0.95);
+  border-color: var(--border-default);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.35);
+}
+
+.bottom-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 0 16px;
+  gap: 12px;
+}
+
+.bottom-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: var(--radius-full);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  color: var(--text-primary);
+  font-size: 0.84rem;
+  font-weight: 750;
+  cursor: pointer;
+  transition: all var(--duration-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.bottom-nav-btn:hover {
+  transform: translateY(-1px);
+  border-color: var(--color-primary-300);
+  color: var(--color-primary-500);
+}
+
+.bottom-nav-btn:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.bottom-nav-btn.btn-nav-share {
+  background: linear-gradient(135deg, var(--color-secondary-500), var(--color-primary-500));
+  color: #FFFFFF;
+  border: none;
+  padding: 9px 24px;
+  font-size: 0.88rem;
+  box-shadow: 0 4px 14px rgba(54, 23, 206, 0.28);
+}
+
+.bottom-nav-btn.btn-nav-share:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(54, 23, 206, 0.38);
+}
+
+.nav-btn-icon {
+  font-size: 0.95rem;
+  font-weight: 900;
+}
+
+.nav-btn-icon.share-icon {
+  font-size: 1rem;
+}
+
+/* ========================================================
+   [20] 토스트 알림 팝업
+   ======================================================== */
+.toast-popup {
+  position: fixed;
+  bottom: 74px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2100;
+  background: rgba(27, 24, 35, 0.94);
+  color: #FFFFFF;
+  padding: 10px 22px;
+  border-radius: var(--radius-full);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.84rem;
+  font-weight: 750;
+  pointer-events: none;
+  animation: toastFadeIn 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.toast-icon {
+  color: #34D399;
+  font-weight: 900;
+}
+
+@keyframes toastFadeIn {
+  from { opacity: 0; transform: translate(-50%, 10px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* ========================================================
+   [21] 오늘의 사자성어 섹션 (요구사항 15)
+   ======================================================== */
+.idiom-card-box {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
+  padding: 24px 28px;
+  box-shadow: var(--shadow-sm);
+}
+
+.idiom-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-default);
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.idiom-title-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.idiom-seal {
+  width: 44px;
+  height: 44px;
+  background: #991B1B;
+  color: #FFFFFF;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  font-weight: 900;
+  font-size: 0.88rem;
+  letter-spacing: -0.05em;
+  box-shadow: 0 4px 10px rgba(153, 27, 27, 0.25);
+}
+
+.idiom-names {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.idiom-hanja {
+  font-size: 1.85rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  margin: 0;
+  font-family: 'Noto Serif KR', serif;
+}
+
+.idiom-hangul {
+  font-size: 1.1rem;
+  font-weight: 750;
+  color: var(--color-primary-500);
+}
+
+body.theme-dark .idiom-hangul {
+  color: #DDD2FF;
+}
+
+.idiom-date-badge {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  background: var(--bg-subtle);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+}
+
+.idiom-card-body {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.idiom-block {
+  background: var(--bg-subtle);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  border-left: 4px solid var(--color-primary-500);
+}
+
+.idiom-block.origin-block {
+  border-left-color: #D97706;
+}
+
+.idiom-block.modern-block {
+  border-left-color: var(--color-secondary-500);
+}
+
+.idiom-block-label {
+  font-size: 0.84rem;
+  font-weight: 850;
+  color: var(--text-secondary);
+  margin-bottom: 5px;
+}
+
+.idiom-text {
+  font-size: 0.94rem;
+  line-height: 1.65;
+  color: var(--text-primary);
+  font-weight: 550;
+}
+
+/* ========================================================
+   [22] 주간 리포트 카드 (요구사항 4: 최하단 배치)
+   ======================================================== */
+.report-box-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
+  padding: 24px 28px;
+  box-shadow: var(--shadow-sm);
 }

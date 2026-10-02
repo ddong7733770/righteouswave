@@ -72,6 +72,13 @@ async def get_content(keyword: str = None):
     return data
 
 
+@app.get("/api/search")
+async def search_connected_sites(keyword: str):
+    """키워드 검색 시 12대 언론사, 유튜브, 커뮤니티 추가 실시간 연결 데이터 반환"""
+    extra_data = data_service.search_external_connected_data(keyword)
+    return extra_data
+
+
 @app.post("/api/refresh")
 async def force_refresh():
     fresh_data = data_service.force_refresh()
